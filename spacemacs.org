@@ -1,0 +1,50 @@
+#+TITLE: Spacenacs configuration
+#+AUTHOR: Arnav Sharma
+#+BABEL: :cache yes
+#+LATEX_HEADER: \usepackage{parskip}
+#+LATEX_HEADER: \usepackage{inconsolata}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+PROPERTY: header-args :tangle yes
+
+* What is this?
+This is my spacemacs literate config. It is highly individualized. The file is tangled into =.spacemacs= at runtime using =org-babel-load-file=.
+* Layers
+#+BEGIN_SRC elisp
+
+  ;; dotspacemacs-configuration-layers
+  ;; '(javascript
+  ;;   html
+  ;;   csv
+  ;;   auto-completion
+  ;;   better-defaults
+  ;;   emacs-lisp
+  ;;   evil-commentary
+  ;;   python
+  ;;   ipython-notebook
+  ;;   ivy
+  ;;   go
+  ;;   git
+  ;;   pdf
+  ;;   markdown
+  ;;   evil-commentary
+  ;;   finance
+  ;;   org
+  ;;   yaml
+  ;;   shell
+  ;;   syntax-checking
+  ;;   spotify
+  ;;   latex
+  ;;   treemacs
+  ;;   chrome
+  ;;   )
+#+END_SRC
+
+#+RESULTS:
+
+* Succesful loading
+#+BEGIN_SRC emacs-lisp
+(message "Successfully loaded the dotspacemacs: booyeah")
+#+END_SRC
+
+#+RESULTS:
+: Successfully loaded the dotspacemacs: booyeah

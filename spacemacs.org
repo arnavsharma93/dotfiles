@@ -1,4 +1,4 @@
-#+TITLE: Spacenacs configuration
+#+TITLE: Spacemacs configuration
 #+AUTHOR: Arnav Sharma
 #+BABEL: :cache yes
 #+LATEX_HEADER: \usepackage{parskip}
@@ -141,6 +141,11 @@ brew install ripgrep
      ))
 #+END_SRC
 * User Config
+** Generic emacs config
+save on =s= in normal mode
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "s") 'save-buffer)
+#+END_SRC
 ** Eshell
 [[https://gitlab.com/ambrevar/emacs-fish-completion][Fish like completion]] to help with completion in eshell
 #+BEGIN_SRC emacs-lisp
@@ -160,6 +165,77 @@ Counsel Rg to truncate all lines greater than 120 lines ([[https://oremacs.com/2
 Ivy occur remapping to =C-c o= ([[https://oremacs.com/2015/11/04/ivy-occur/][source]])
 #+BEGIN_SRC emacs-lisp
   (define-key ivy-minibuffer-map (kbd "C-c o") 'ivy-occur)
+#+END_SRC
+** Company mode
+Low company idle delay
+#+BEGIN_SRC emacs-lisp
+  (setq company-idle-delay 0.2)
+#+END_SRC
+
+Trigger company completion everytime
+#+BEGIN_SRC emacs-lisp
+  (setq company-minimum-prefix-length 0)
+#+END_SRC
+
+Trigger company completion only when 3 chars have been typed
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook
+            (lambda () ((set (make-local-variable company-minimum-prefix-length) 3)
+                        ))
+#+END_SRC
+
+#+RESULTS:
+** Evil goggles
+
+Evil googles highlight what is yanked etc in evil mode ([[https://github.com/edkolev/evil-goggles][source]])
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-goggles
+    :ensure t
+    :config
+    (evil-goggles-mode)
+
+    ;; optionally use diff-mode's faces; as a result, deleted text
+    ;; will be highlighed with `diff-removed` face which is typically
+    ;; some red color (as defined by the color theme)
+    ;; other faces such as `diff-added` will be used for other actions
+    (evil-goggles-use-diff-faces))
+
+#+END_SRC
+** Doom theme configuration
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-themes
+    :config
+    ;; Global settings (defaults)
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+          doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    ;; Enable flashing mode-line on errors
+    (doom-themes-visual-bell-config)
+
+    ;; treemacs
+    (doom-themes-treemacs-config)
+
+    ;; Corrects (and improves) org-mode's native fontification.
+    (doom-themes-org-config)
+    )
+
+#+END_SRC
+** Go mode
+go-direx to show what all is contained in a go file. remap =,,= to =gofmt=.
+#+BEGIN_SRC emacs-lisp
+  (use-package go-direx
+    :ensure t
+    :config
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode "=" 'go-direx-pop-to-buffer)
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode "," 'gofmt)
+    )
+#+END_SRC
+** LSP configuration
+Langauge Server settings. Currently disabled.
+
+Disable lsp ui ([[https://github.com/syl20bnr/spacemacs/issues/11265][source]]) and stop creating lock files ([[https://github.com/emacs-lsp/lsp-mode/issues/378][source]])
+#+BEGIN_SRC emacs-lisp :tangle no
+  (setq lsp-ui-flycheck-enable nil)
+  (setq create-lockfiles nil)
 #+END_SRC
 * Finish loading
 #+BEGIN_SRC emacs-lisp

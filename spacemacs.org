@@ -240,7 +240,17 @@ Enable switching to the /special/ buffers & create and set a view ([[http://irre
   (global-set-key (kbd "C-c V") 'ivy-pop-view)
   (global-set-key (kbd "C-c s") 'ivy-switch-view)
 #+END_SRC
+** Alert config
+#+BEGIN_SRC emacs-lisp
+  (use-package alert
+  :ensure t
+  :config
+  (setq alert-default-style 'osx-notifier)
+  )
+#+END_SRC
 
+#+RESULTS:
+: t
 
 ** Company mode
 Low company idle delay
@@ -711,8 +721,7 @@ Remove unused buffers after a certain time
 
 * Finish loading
 #+BEGIN_SRC emacs-lisp
-  (message "Successfully loaded the dotspacemacs: booyeah")
+  (alert "Successfully loaded the dotspacemacs: booyeah")
 #+END_SRC
 
 #+RESULTS:
-: Successfully loaded the dotspacemacs: booyeah

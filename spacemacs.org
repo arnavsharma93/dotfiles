@@ -14,7 +14,11 @@ This is my spacemacs literate config. It is highly individualized. The file is t
 #+BEGIN_SRC sh :tangle no
 brew install ripgrep
 #+END_SRC
-
+** Go mode
+#+BEGIN_SRC sh :tangle no
+go get -u github.com/jstemmer/gotags
+go get golang.org/x/tools/cmd/goimports
+#+END_SRC
 * Spacemacs centric config
 ** Layers
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -142,9 +146,26 @@ brew install ripgrep
 #+END_SRC
 * User Config
 ** Generic emacs config
+
+Set my email
+#+BEGIN_SRC emacs-lisp
+ (setq user-mail-address "arnavsharma93@gmail.com")
+#+END_SRC
 save on =s= in normal mode
 #+BEGIN_SRC emacs-lisp
   (define-key evil-normal-state-map (kbd "s") 'save-buffer)
+#+END_SRC
+
+Don't move cursor back on exiting insert state
+#+BEGIN_SRC emacs-lisp
+  (setq evil-move-cursor-back nil)
+#+END_SRC
+
+GC settings
+#+BEGIN_SRC emacs-lisp
+ (setq garbage-collection-messages t)
+ (setq large-file-warning-threshold 100000000)
+
 #+END_SRC
 ** Eshell
 [[https://gitlab.com/ambrevar/emacs-fish-completion][Fish like completion]] to help with completion in eshell
@@ -154,6 +175,7 @@ save on =s= in normal mode
     :config
     (global-fish-completion-mode)
     )
+  (setq shell-default-shell 'eshell)
 #+END_SRC
 ** Counsel
 Counsel Rg to truncate all lines greater than 120 lines ([[https://oremacs.com/2018/03/05/grep-exclude/][source]])
@@ -166,6 +188,42 @@ Ivy occur remapping to =C-c o= ([[https://oremacs.com/2015/11/04/ivy-occur/][sou
 #+BEGIN_SRC emacs-lisp
   (define-key ivy-minibuffer-map (kbd "C-c o") 'ivy-occur)
 #+END_SRC
+
+Remap ~counsel-projectile-find-file~ to ~pa~ and use ~counsel-git~ as ~pf~
+#+BEGIN_SRC emacs-lisp
+ (spacemacs/set-leader-keys
+   "pa" 'counsel-projectile-find-file
+   "pf" 'counsel-git
+   )
+
+#+END_SRC
+
+#+RESULTS:
+** Ivy config
+Define ivy builders per function ([[https://emacs.stackexchange.com/questions/36745/enable-ivy-fuzzy-matching-everywhere-except-in-swiper][related source]])
+#+BEGIN_SRC emacs-lisp
+ (setq ivy-re-builders-alist '((counsel-M-x . ivy--regex-fuzzy)
+                               (counsel-describe-function . ivy--regex-fuzzy)
+                               (counsel-git . ivy--regex-fuzzy)
+                               (counsel-projectile-find-file . ivy--regex-fuzzy)
+                               (counsel-find-file . ivy--regex-fuzzy)
+                               (counsel-describe-variable . ivy--regex-fuzzy)
+                               (spacemacs/counsel-search . spacemacs/ivy--regex-plus)
+                               (t . ivy--regex-ignore-order))
+
+  )
+#+END_SRC
+
+Enable switching to the /special/ buffers & create and set a view ([[http://irreal.org/blog/?p=5355][source]])
+#+BEGIN_SRC emacs-lisp
+  (setq ivy-use-virtual-buffers t)
+
+  (global-set-key (kbd "C-c v") 'ivy-push-view)
+  (global-set-key (kbd "C-c V") 'ivy-pop-view)
+  (global-set-key (kbd "C-c s") 'ivy-switch-view)
+#+END_SRC
+
+
 ** Company mode
 Low company idle delay
 #+BEGIN_SRC emacs-lisp
@@ -177,14 +235,34 @@ Trigger company completion everytime
   (setq company-minimum-prefix-length 0)
 #+END_SRC
 
-Trigger company completion only when 3 chars have been typed
-#+BEGIN_SRC emacs-lisp
+Trigger company completion only when 3 chars have been typed. Currently disabled.
+#+BEGIN_SRC emacs-lisp :tangle no
   (add-hook 'org-mode-hook
-            (lambda () ((set (make-local-variable company-minimum-prefix-length) 3)
+            (lambda () ((setq (make-local-variable 'company-minimum-prefix-length) 3))
                         ))
 #+END_SRC
 
 #+RESULTS:
+
+Don't downcase in case of company autocomplete
+#+BEGIN_SRC emacs-lisp
+  (setq company-dabbrev-downcase nil)
+#+END_SRC
+
+Don't show snippet popups
+#+BEGIN_SRC emacs-lisp
+ (setq auto-completion-enable-snippets-in-popup nil)
+#+END_SRC
+
+Autocomplete sort by word usage
+#+BEGIN_SRC emacs-lisp
+ (setq auto-completion-enable-sort-by-usage t)
+#+END_SRC
+
+Don't do anything on return as prefix length is zero
+#+BEGIN_SRC emacs-lisp
+ (setq auto-completion-return-key-behavior nil)
+#+END_SRC
 ** Evil goggles
 
 Evil googles highlight what is yanked etc in evil mode ([[https://github.com/edkolev/evil-goggles][source]])
@@ -220,7 +298,7 @@ Evil googles highlight what is yanked etc in evil mode ([[https://github.com/edk
 
 #+END_SRC
 ** Go mode
-go-direx to show what all is contained in a go file. remap =,,= to =gofmt=.
+go-direx to show what all is contained in a go file. remap ~,,~ to =gofmt=.
 #+BEGIN_SRC emacs-lisp
   (use-package go-direx
     :ensure t
@@ -228,6 +306,26 @@ go-direx to show what all is contained in a go file. remap =,,= to =gofmt=.
     (spacemacs/set-leader-keys-for-major-mode 'go-mode "=" 'go-direx-pop-to-buffer)
     (spacemacs/set-leader-keys-for-major-mode 'go-mode "," 'gofmt)
     )
+#+END_SRC
+
+Use much better godoc at point function
+#+BEGIN_SRC emacs-lisp
+  (setq godoc-at-point-function 'godoc-gogetdoc)
+#+END_SRC
+
+Set tab width to 4
+#+BEGIN_SRC emacs-lisp
+ (setq go-tab-width 4)
+#+END_SRC
+
+Run goformat before save
+#+BEGIN_SRC emacs-lisp
+ (setq go-format-before-save t)
+#+END_SRC
+
+Run goimports on save
+#+BEGIN_SRC emacs-lisp
+ (setq gofmt-command "goimports")
 #+END_SRC
 ** LSP configuration
 Langauge Server settings. Currently disabled.
@@ -237,6 +335,352 @@ Disable lsp ui ([[https://github.com/syl20bnr/spacemacs/issues/11265][source]]) 
   (setq lsp-ui-flycheck-enable nil)
   (setq create-lockfiles nil)
 #+END_SRC
+** File mode configurations
+Enable emacs mode depending on the file format
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.avsc\\'" . json-mode))
+  (add-to-list 'auto-mode-alist '("\\.csv\\'" . org-mode))
+  (add-to-list 'auto-mode-alist '("\\.zsh\\'" . sh-mode))
+#+END_SRC
+** Org mode
+*** Babel settings
+Don't ask confirmation while executing in org buffers
+#+BEGIN_SRC emacs-lisp
+ (setq org-confirm-babel-evaluate nil)
+#+END_SRC
+*** Custom functions
+A nifty function to insert current time in the buffer. Bound to ~,;~
+#+BEGIN_SRC emacs-lisp
+    (defvar current-time-format "%H:%M"
+      "Format of date to insert with `insert-current-time' func.
+  Note the weekly scope of the command's precision.")
+    (defun insert-current-time ()
+      "insert the current time (1-week scope) into the current buffer."
+      (interactive)
+      (insert (format-time-string current-time-format (current-time)))
+      (insert " - ")
+      )
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode ";" 'insert-current-time)
+#+END_SRC
+*** Column view
+Column view default columns
+#+BEGIN_SRC emacs-lisp
+ (setq org-agenda-overriding-columns-format "%7TODO(Todo) %40ITEM(Task) %TAGS(Tags) %6CLOCKSUM(Actual) %8Effort(Estimate){:}")
+#+END_SRC
+TODO states
+#+BEGIN_SRC emacs-lisp
+ (setq org-todo-keywords
+       '((sequence "TODO(t)" "INPROGRESS(p/!)" "STOPPED(s/!)" "WAIT(w@/!)" "|" "DONE(d@/!)" "CANCELLED(c@)")))
+
+ (setq org-log-states-order-reversed t)
+#+END_SRC
+*** Clocking
+Clocking configuration
+#+BEGIN_SRC emacs-lisp
+  ;; Resume clocking task when emacs is restarted
+  (org-clock-persistence-insinuate)
+  ;; Save the running clock and all clock history when exiting Emacs, load it on startup
+  (setq org-clock-persist t)
+  ;; Resume clocking task on clock-in if the clock is open
+  (setq org-clock-in-resume t)
+  ;; Do not prompt to resume an active clock, just resume it
+  (setq org-clock-persist-query-resume nil)
+
+  ;; Change tasks to whatever when clocking out
+  (setq org-clock-out-switch-to-state "STOPPED")
+  ;; Change tasks to whatever when clocking in
+  (setq org-clock-in-switch-to-state "INPROGRESS")
+  ;; Save clock data and state changes and notes in the LOGBOOK drawer
+  (setq org-clock-into-drawer t)
+  ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks
+  ;; with 0:00 duration
+  (setq org-clock-out-remove-zero-time-clocks t)
+  ;; Clock out when moving task to a done state
+  (setq org-clock-out-when-done t)
+  ;; Enable auto clock resolution for finding open clocks
+  ;; commenting out as I don't know what this does
+  ;; (setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+  ;; Include current clocking task in clock reports
+  (setq org-clock-report-include-clocking-task t)
+  ;; use pretty things for the clocktable
+  (setq org-pretty-entities t)
+
+ (spacemacs/toggle-mode-line-org-clock-on)
+#+END_SRC
+Clocking and other keybindings
+#+BEGIN_SRC emacs-lisp
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "c" nil)
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "I" nil)
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "O" nil)
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "Q" nil)
+ (spacemacs/declare-prefix-for-mode 'org-mode "c" "clock")
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "ck" 'org-clock-cancel)
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "cd" 'org-clock-display)
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "co" 'org-clock-out)
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "cc" 'org-clock-in-last)
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "ci" 'org-clock-in)
+
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "ic" 'org-cliplink)
+ (spacemacs/declare-prefix-for-mode 'org-mode "v" "view")
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "vc" 'org-columns)
+
+ (spacemacs/set-leader-keys-for-major-mode 'org-mode "I" 'org-add-note)
+#+END_SRC
+*** Generic
+Indent in org mode
+#+BEGIN_SRC emacs-lisp
+ (add-hook 'org-mode-hook 'org-indent-mode)
+ (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
+#+END_SRC
+
+Enable org autolist mode
+#+BEGIN_SRC emacs-lisp :tangle no
+ (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
+#+END_SRC
+
+Keep super and subscripts as it is
+#+BEGIN_SRC emacs-lisp
+ (setq org-use-sub-superscripts nil)
+#+END_SRC
+
+Don't startup truncated. Currently disabled.
+#+BEGIN_SRC emacs-lisp :tangle no
+ (setq org-startup-truncated nil)
+#+END_SRC
+Remap ~C-'~ to nil so that avy can work as expected
+#+BEGIN_SRC emacs-lisp
+ (define-key org-mode-map (kbd "C-'") nil)
+#+END_SRC
+*** Export
+Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839/exporting-code-blocks-to-pdf-via-latex][source]])
+#+BEGIN_SRC emacs-lisp
+ (use-package org
+   :ensure t
+   :config
+   (progn
+     ;; (use-package ox-latex :ensure t)
+     (add-to-list 'org-latex-packages-alist '("" "minted"))
+     (setq org-latex-listings 'minted)
+
+     (setq org-latex-pdf-process
+           '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "bibtex %b"
+             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+     (setq org-src-fontify-natively t)
+
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((R . t)
+        (latex . t)))
+     )
+   )
+#+END_SRC
+*** GTD
+
+Org mode files
+#+BEGIN_SRC emacs-lisp
+ (defun my-org/open-inbox-file()
+   (interactive)
+   (find-file "~/Dropbox/org/gtd/inbox.org")
+   )
+
+ (defun my-org/open-gtd-file()
+   (interactive)
+   (find-file "~/Dropbox/org/gtd/gtd.org")
+   )
+
+ (spacemacs/set-leader-keys
+   "oo" 'org-capture
+   "oi" 'my-org/open-inbox-file
+   "og" 'my-org/open-gtd-file
+   "oa" 'org-agenda
+   "oc" 'org-clock-goto
+   )
+
+#+END_SRC
+
+Effort configurations
+#+BEGIN_SRC emacs-lisp
+ (setq org-global-properties
+       '(("Effort_ALL" .
+          "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 8:00")))
+
+#+END_SRC
+
+Log changes in drawer
+#+BEGIN_SRC emacs-lisp
+ (setq org-log-into-drawer t)
+#+END_SRC
+
+Org id set and export
+#+BEGIN_SRC emacs-lisp
+  (setq org-id-link-to-org-use-id t)
+  (setq org-export-with-section-numbers nil)
+
+  (add-hook 'org-capture-prepare-finalize-hook 'org-id-get-create)
+  (add-hook 'org-capture-after-finalize-hook  'org-id-update-id-locations)
+
+#+END_SRC
+
+Org capture templates
+#+BEGIN_SRC emacs-lisp
+ (setq org-capture-templates '(("t" "Todo [inbox]" entry
+                                (file+headline "~/Dropbox/org/gtd/inbox.org" "Tasks")
+                                (file "~/Dropbox/org/templates/todo.orgcaptmpl")
+                                :empty-lines 1)
+                               ("T" "Tickler" entry
+                                (file+headline "~/Dropbox/org/gtd/tickler.org" "Tickler")
+                                "* %i%? \n %U" :empty-lines 1)
+                               ("i" "Interview"
+                                entry
+                                (file "~/Dropbox/org/interviews.org")
+                                (file "~/Dropbox/org/templates/interview.orgcaptmpl"))
+                               ("n" "Note" entry
+                                (file+headline "~/Dropbox/org/notes.org" "Notes")
+                                "* %i%? %^g\nLogged on %U" :empty-lines 1)
+                               ("j" "Journal" entry
+                                (file+olp+datetree "~/Dropbox/org/journal.org")
+                                "* Logged on %U\n- %?" :empty-lines 1)))
+#+END_SRC
+
+Org refiling configuration
+#+BEGIN_SRC emacs-lisp
+ (setq org-refile-targets '(("~/Dropbox/org/gtd/gtd.org" :maxlevel . 3)
+                            ("~/Dropbox/org/gtd/someday.org" :level . 1)
+                            ("~/Dropbox/org/gtd/tickler.org" :maxlevel . 2)))
+ (setq org-refile-use-outline-path 'file
+       org-outline-path-complete-in-steps nil)
+ (setq org-refile-allow-creating-parent-nodes 'confirm)
+
+#+END_SRC
+
+List of agenda files
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files '("~/Dropbox/org/gtd/inbox.org"
+                           "~/Dropbox/org/gtd/gtd.org"
+                           "~/Dropbox/org/gtd/tickler.org"))
+
+ (setq arnav/org-agenda-someday-view
+       `("s" "Someday" todo ""
+         ((org-agenda-files '("~/Dropbox/org/gtd/someday.org")))))
+
+ (setq arnav/org-agenda-banker-view
+       `("b" "Banker" search "LEVEL=1/Banker"
+         ((org-agenda-files '("~/Dropbox/org/gtd/gtd.org")))))
+
+ (setq arnav/org-agenda-inbox-view
+       `("i" "Inbox" todo ""
+         ((org-agenda-files '("~/Dropbox/org/gtd/inbox.org")))))
+
+ (setq arnav/org-agenda-tickler-view
+       `("T" "tickler" todo ""
+         ((org-agenda-files '("~/Dropbox/org/gtd/tickler.org")))))
+
+ (setq org-agenda-custom-commands
+       `(,arnav/org-agenda-inbox-view
+         ,arnav/org-agenda-someday-view
+         ,arnav/org-agenda-tickler-view
+         ,arnav/org-agenda-banker-view
+         ))
+
+#+END_SRC
+
+** Git settings
+Set =giteditor= as emacs using =witheditor=
+#+BEGIN_SRC emacs-lisp
+  (define-key (current-global-map)
+    [remap async-shell-command] 'with-editor-async-shell-command)
+  (define-key (current-global-map)
+    [remap shell-command] 'with-editor-shell-command)
+  (add-hook 'eshell-mode-hook 'with-editor-export-editor)
+  (add-hook 'term-exec-hook   'with-editor-export-editor)
+#+END_SRC
+
+Switch to alernate window when running magit. Not sure what it does. Currently disabled.
+#+BEGIN_SRC emacs-lisp :tangle no
+  (add-hook 'shell-command-with-editor-mode-hook 'spacemacs/alternate-window)
+#+END_SRC
+
+Show branch name before tags
+#+BEGIN_SRC emacs-lisp
+ (setq magit-log-show-refname-after-summary t)
+#+END_SRC
+** Shell settings
+**
+**
+**
+**
+Run =zsh= in an inferior shell
+#+BEGIN_SRC emacs-lisp
+  (setq explicit-shell-file-name "/bin/zsh")
+#+END_SRC
+
+Save history of shell-commands run
+#+BEGIN_SRC emacs-lisp
+  (setq savehist-save-minibuffer-history 1)
+  (setq savehist-additional-variables
+        '(kill-ring search-ring regexp-search-ring compile-history log-edit-comment-ring)
+        savehist-file "~/.emacs.d/savehist")
+  (savehist-mode t)
+#+END_SRC
+
+Exit async buffer on =q=
+#+BEGIN_SRC emacs-lisp
+ (defun maybe-set-quit-key ()
+   (when (string= (buffer-name) "*Async Shell Command*")
+     (local-set-key (kbd "q") #'quit-window)))
+
+ (add-hook 'shell-mode-hook #'maybe-set-quit-key)
+#+END_SRC
+** PDF settings
+Turn off line numbering in pdf view
+#+BEGIN_SRC emacs-lisp
+ (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
+#+END_SRC
+
+** Autosave go and emacs buffer
+Auto save org and go mode buffers after 15 odd minutes
+#+BEGIN_SRC emacs-lisp
+ (use-package real-auto-save
+   :init
+   (setq real-auto-save-interval 1800)
+   :config
+   (add-hook 'org-mode-hook 'real-auto-save-mode)
+   (add-hook 'go-mode-hook 'real-auto-save-mode)
+   )
+
+#+END_SRC
+** Tramp mode
+Tramp mode speedups attempts ([[https://www.emacswiki.org/emacs/TrampMode][source]])
+#+BEGIN_SRC emacs-lisp
+ (setq remote-file-name-inhibit-cache nil)
+ (setq tramp-completion-reread-directory-timeout nil)
+ (setq vc-ignore-dir-regexp
+       (format "\\(%s\\)\\|\\(%s\\)"
+               vc-ignore-dir-regexp
+               tramp-file-name-regexp))
+#+END_SRC
+
+Run to change tramp mode verbosity
+#+BEGIN_SRC emacs-lisp :tangle no
+ (setq tramp-verbose 3)
+#+END_SRC
+** Avy
+Set timeout for avy timer
+#+BEGIN_SRC emacs-lisp
+ (setq avy-timeout-seconds 0.5)
+#+END_SRC
+** Midnight
+Remove unused buffers after a certain time
+
+#+BEGIN_SRC emacs-lisp
+(use-package midnight
+:ensure t)
+#+END_SRC
+
 * Finish loading
 #+BEGIN_SRC emacs-lisp
 (message "Successfully loaded the dotspacemacs: booyeah")

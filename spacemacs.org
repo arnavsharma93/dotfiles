@@ -1,9 +1,6 @@
 #+TITLE: Spacemacs configuration
 #+AUTHOR: Arnav Sharma
 #+BABEL: :cache yes
-#+LATEX_HEADER: \usepackage{parskip}
-#+LATEX_HEADER: \usepackage{inconsolata}
-#+LATEX_HEADER: \usepackage[utf8]{inputenc}
 #+PROPERTY: header-args :tangle yes
 
 * What is this?

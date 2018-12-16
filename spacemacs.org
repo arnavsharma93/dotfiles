@@ -10,15 +10,14 @@
 This is my spacemacs literate config. It is highly individualized. The file is tangled into =.spacemacs= at runtime using =org-babel-load-file=.
 
 * Installation
-
 ** Tools
-#+BEGIN_SRC sh tangle:no
+#+BEGIN_SRC sh :tangle no
 brew install ripgrep
 #+END_SRC
 
 * Spacemacs centric config
 ** Layers
-#+BEGIN_SRC emacs-lisp tangle:no
+#+BEGIN_SRC emacs-lisp :tangle no
 
   (defun dotspacemacs/layers ()
     (setq-default
@@ -69,7 +68,7 @@ brew install ripgrep
      ))
 #+END_SRC
 ** Styles and other config
-#+BEGIN_SRC emacs-lisp tangle:no
+#+BEGIN_SRC emacs-lisp :tangle no
   (defun dotspacemacs/init ()
     "Initialization function.
   This function is called at the very startup of Spacemacs initialization
@@ -142,7 +141,26 @@ brew install ripgrep
      ))
 #+END_SRC
 * User Config
+** Eshell
+[[https://gitlab.com/ambrevar/emacs-fish-completion][Fish like completion]] to help with completion in eshell
+#+BEGIN_SRC emacs-lisp
+  (use-package fish-completion
+    :ensure t
+    :config
+    (global-fish-completion-mode)
+    )
+#+END_SRC
+** Counsel
+Counsel Rg to truncate all lines greater than 120 lines ([[https://oremacs.com/2018/03/05/grep-exclude/][source]])
+#+BEGIN_SRC emacs-lisp
+  (setq counsel-rg-base-command
+        "rg -i -M 120 --no-heading --line-number --color never %s ")
+#+END_SRC
 
+Ivy occur remapping to =C-c o= ([[https://oremacs.com/2015/11/04/ivy-occur/][source]])
+#+BEGIN_SRC emacs-lisp
+  (define-key ivy-minibuffer-map (kbd "C-c o") 'ivy-occur)
+#+END_SRC
 * Finish loading
 #+BEGIN_SRC emacs-lisp
 (message "Successfully loaded the dotspacemacs: booyeah")

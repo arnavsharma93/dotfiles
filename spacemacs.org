@@ -2,7 +2,7 @@
 #+AUTHOR: Arnav Sharma
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes
-
+#+OPTIONS: toc:2
 * What is this?
 This is my spacemacs literate config. It is highly individualized. The file is tangled into =.spacemacs= at runtime using =org-babel-load-file=.
 
@@ -13,8 +13,21 @@ brew install ripgrep
 #+END_SRC
 ** Go mode
 #+BEGIN_SRC sh :tangle no
-go get -u github.com/jstemmer/gotags
-go get golang.org/x/tools/cmd/goimports
+  go get -u -v github.com/mdempsky/gocode
+  go get -u -v github.com/rogpeppe/godef
+  go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+  go get -u -v github.com/fatih/gomodifytags
+  go get -u -v github.com/godoctor/godoctor
+  go install github.com/godoctor/godoctor
+  go get -u -v golang.org/x/tools/cmd/guru
+  go get -u -v golang.org/x/tools/cmd/gorename
+  go get -u -v github.com/zmb3/gogetdoc
+  go get -u -v github.com/cweill/gotests/...
+  go get -u github.com/haya14busa/gopkgs/cmd/gopkgs
+  go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+  go get -u github.com/josharian/impl
+  go get -u github.com/jstemmer/gotags
+  go get golang.org/x/tools/cmd/goimports
 #+END_SRC
 * Spacemacs centric config
 ** Layers

@@ -5,6 +5,42 @@
 #+OPTIONS: toc:2
 * What is this?
 This is my spacemacs literate config. It is highly individualized. The file is tangled into =.spacemacs= at runtime using =org-babel-load-file=.
+* Table of Contents                                                     :TOC:
+- [[#what-is-this][What is this?]]
+- [[#installation][Installation]]
+  - [[#tools][Tools]]
+  - [[#go-mode][Go mode]]
+- [[#spacemacs-centric-config][Spacemacs centric config]]
+  - [[#layers][Layers]]
+  - [[#styles-and-other-config][Styles and other config]]
+- [[#user-config][User Config]]
+  - [[#generic-emacs-config][Generic emacs config]]
+  - [[#eshell][Eshell]]
+  - [[#counsel][Counsel]]
+  - [[#ivy-config][Ivy config]]
+  - [[#alert-config][Alert config]]
+  - [[#company-mode][Company mode]]
+  - [[#evil-goggles][Evil goggles]]
+  - [[#doom-theme-configuration][Doom theme configuration]]
+  - [[#go-mode-1][Go mode]]
+  - [[#lsp-configuration][LSP configuration]]
+  - [[#file-mode-configurations][File mode configurations]]
+  - [[#org-mode][Org mode]]
+    - [[#babel-settings][Babel settings]]
+    - [[#custom-functions][Custom functions]]
+    - [[#column-view][Column view]]
+    - [[#clocking][Clocking]]
+    - [[#generic][Generic]]
+    - [[#export][Export]]
+    - [[#gtd][GTD]]
+  - [[#git-settings][Git settings]]
+  - [[#shell-settings][Shell settings]]
+  - [[#pdf-settings][PDF settings]]
+  - [[#autosave-go-and-emacs-buffer][Autosave go and emacs buffer]]
+  - [[#tramp-mode][Tramp mode]]
+  - [[#avy][Avy]]
+  - [[#midnight][Midnight]]
+- [[#finish-loading][Finish loading]]
 
 * Installation
 ** Tools
@@ -507,6 +543,20 @@ Remap ~C-'~ to nil so that avy can work as expected
 #+BEGIN_SRC emacs-lisp
  (define-key org-mode-map (kbd "C-'") nil)
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package toc-org
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook 'toc-org-mode)
+    (add-to-list 'org-tag-alist '("TOC" . ?T))
+    )
+#+END_SRC
+
+#+RESULTS:
+: t
+
+
 *** Export
 Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839/exporting-code-blocks-to-pdf-via-latex][source]])
 #+BEGIN_SRC emacs-lisp

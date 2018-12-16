@@ -544,6 +544,7 @@ Remap ~C-'~ to nil so that avy can work as expected
  (define-key org-mode-map (kbd "C-'") nil)
 #+END_SRC
 
+Adding [[https://github.com/snosov1/toc-org/blob/master/README.org][toc-org]] to generate toc for github in buffer
 #+BEGIN_SRC emacs-lisp
   (use-package toc-org
     :ensure t

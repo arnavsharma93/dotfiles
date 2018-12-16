@@ -721,7 +721,7 @@ Remove unused buffers after a certain time
 
 * Finish loading
 #+BEGIN_SRC emacs-lisp
-  (alert "Successfully loaded the dotspacemacs: booyeah")
+  (alert "Successfully loaded: booyeah" :title "Dotspacemacs")
 #+END_SRC
 
 #+RESULTS:

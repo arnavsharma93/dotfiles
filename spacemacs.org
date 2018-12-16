@@ -164,6 +164,27 @@ GC settings
  (setq large-file-warning-threshold 100000000)
 
 #+END_SRC
+
+Reload and find my dotspacemacs configuration
+#+BEGIN_SRC emacs-lisp
+     (defun my-reload-config ()
+       (interactive)
+       (with-eval-after-load 'org
+         (org-babel-load-file "~/dotfiles/spacemacs.org"))
+     )
+
+  (defun my-find-dotfile ()
+    "Edit the `dotfile', in the current window."
+    (interactive)
+    (find-file-existing "~/dotfiles/spacemacs.org"))
+
+    (spacemacs/set-leader-keys
+      "feM" 'my-reload-config
+      "fem" 'my-find-dotfile
+      )
+
+#+END_SRC
+
 ** Eshell
 [[https://gitlab.com/ambrevar/emacs-fish-completion][Fish like completion]] to help with completion in eshell
 #+BEGIN_SRC emacs-lisp
@@ -260,6 +281,11 @@ Don't do anything on return as prefix length is zero
 #+BEGIN_SRC emacs-lisp
  (setq auto-completion-return-key-behavior nil)
 #+END_SRC
+
+Autocomplete on ~jk~
+#+BEGIN_SRC emacs-lisp
+(setq auto-completion-complete-with-key-sequence "jk")
+#+END_SRC
 ** Evil goggles
 
 Evil googles highlight what is yanked etc in evil mode ([[https://github.com/edkolev/evil-goggles][source]])
@@ -323,6 +349,16 @@ Run goformat before save
 Run goimports on save
 #+BEGIN_SRC emacs-lisp
  (setq gofmt-command "goimports")
+#+END_SRC
+
+Use gocheck for testing
+#+BEGIN_SRC emacs-lisp
+(setq go-use-gocheck-for-testing t)
+#+END_SRC
+
+Use golangci as linter instead of gometaliner
+#+BEGIN_SRC emacs-lisp
+(setq go-use-golangci-lint t)
 #+END_SRC
 ** LSP configuration
 Langauge Server settings. Currently disabled.
@@ -428,7 +464,6 @@ Clocking and other keybindings
 Indent in org mode
 #+BEGIN_SRC emacs-lisp
  (add-hook 'org-mode-hook 'org-indent-mode)
- (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
 #+END_SRC
 
 Enable org autolist mode
@@ -606,10 +641,6 @@ Show branch name before tags
  (setq magit-log-show-refname-after-summary t)
 #+END_SRC
 ** Shell settings
-**
-**
-**
-**
 Run =zsh= in an inferior shell
 #+BEGIN_SRC emacs-lisp
   (setq explicit-shell-file-name "/bin/zsh")
@@ -680,7 +711,7 @@ Remove unused buffers after a certain time
 
 * Finish loading
 #+BEGIN_SRC emacs-lisp
-(message "Successfully loaded the dotspacemacs: booyeah")
+  (message "Successfully loaded the dotspacemacs: booyeah")
 #+END_SRC
 
 #+RESULTS:

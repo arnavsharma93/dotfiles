@@ -359,10 +359,13 @@ Eshell quit on =,-q= in normal mode
   (eshell-life-is-too-much)
   (delete-window))
 
-  (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "q" 'exit-eshell-and-delete-window)
-#+END_SRC
+  (defun delete-eshell-window ()
+  (interactive)
+  (delete-window))
 
-#+RESULTS:
+  (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "Q" 'exit-eshell-and-delete-window)
+  (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "q" 'delete-eshell-window)
+#+END_SRC
 
 
 

@@ -282,7 +282,7 @@ Enable Plan9 like smart shell ([[https://www.masteringemacs.org/article/complete
 #+RESULTS:
 : t
 
-Clear on =,-l=
+Clear on ~leader-l~
 #+BEGIN_SRC emacs-lisp
    (defun clear ()
      "Clear the eshell buffer."
@@ -294,7 +294,7 @@ Clear on =,-l=
   (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "l" 'eshell-clear)
 #+END_SRC
 
-Get history on =,-h=
+Get history on ~leader-h~
 #+BEGIN_SRC emacs-lisp
   (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "h" 'counsel-esh-history)
 #+END_SRC
@@ -339,7 +339,7 @@ Overwriting spacemacs eshell popup as it does not remember history ([[https://gi
 : eshell-new
 
 
-Call ivy to show eshell buffers - open one if buffer does not exist. Bind to =<SPC>-'=
+Call ivy to show eshell buffers - open one if buffer does not exist. Bind to ~SPC-'~
 #+BEGIN_SRC emacs-lisp
 
   (defun ivy-eshell-new ()
@@ -361,7 +361,7 @@ Call ivy to show eshell buffers - open one if buffer does not exist. Bind to =<S
 #+END_SRC
 
 
-Eshell quit on =,-q= in normal mode
+Eshell quit on ~leader-q~ in normal mode
 #+BEGIN_SRC emacs-lisp
   (defun exit-eshell-and-delete-window ()
   (interactive)
@@ -396,12 +396,12 @@ Counsel Rg to truncate all lines greater than 120 lines ([[https://oremacs.com/2
         "rg -i -M 120 --no-heading --line-number --color never %s ")
 #+END_SRC
 
-Ivy occur remapping to =C-c o= ([[https://oremacs.com/2015/11/04/ivy-occur/][source]])
+Ivy occur remapping to ~C-c o~ ([[https://oremacs.com/2015/11/04/ivy-occur/][source]])
 #+BEGIN_SRC emacs-lisp
   (define-key ivy-minibuffer-map (kbd "C-c o") 'ivy-occur)
 #+END_SRC
 
-Remap =counsel-projectile-find-file= to =pa= and use =counsel-git= as =pf=
+Remap ~counsel-projectile-find-file~ to ~pa~ and use ~counsel-git~ as ~pf~
 #+BEGIN_SRC emacs-lisp
  (spacemacs/set-leader-keys
    "pa" 'counsel-projectile-find-file
@@ -486,7 +486,7 @@ Don't do anything on return as prefix length is zero
  (setq auto-completion-return-key-behavior nil)
 #+END_SRC
 
-Autocomplete on =jk=
+Autocomplete on ~jk~
 #+BEGIN_SRC emacs-lisp
 (setq auto-completion-complete-with-key-sequence "jk")
 #+END_SRC
@@ -539,7 +539,7 @@ Integrate with python virtualenvwrapper and get it working with eshell ([[https:
 : t
 
 ** Go mode
-go-direx to show what all is contained in a go file. remap =,,= to =gofmt=.
+go-direx to show what all is contained in a go file. remap ~leaderredael~ to =gofmt=.
 #+BEGIN_SRC emacs-lisp
   (use-package go-direx
     :ensure t
@@ -601,7 +601,7 @@ Don't ask confirmation while executing in org buffers
  (setq org-confirm-babel-evaluate nil)
 #+END_SRC
 *** Custom functions
-A nifty function to insert current time in the buffer. Bound to =,;=
+A nifty function to insert current time in the buffer. Bound to ~leader;~
 #+BEGIN_SRC emacs-lisp
     (defvar current-time-format "%H:%M"
       "Format of date to insert with `insert-current-time' func.
@@ -698,7 +698,7 @@ Don't startup truncated. Currently disabled.
 #+BEGIN_SRC emacs-lisp :tangle no
  (setq org-startup-truncated nil)
 #+END_SRC
-Remap =C-'= to nil so that avy can work as expected
+Remap ~C-'~ to nil so that avy can work as expected
 #+BEGIN_SRC emacs-lisp
  (define-key org-mode-map (kbd "C-'") nil)
 #+END_SRC
@@ -936,7 +936,7 @@ Save history of shell-commands run
   (savehist-mode t)
 #+END_SRC
 
-Exit async buffer on =q=
+Exit async buffer on ~q~
 #+BEGIN_SRC emacs-lisp
  (defun maybe-set-quit-key ()
    (when (string= (buffer-name) "*Async Shell Command*")

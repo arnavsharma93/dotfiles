@@ -9,7 +9,7 @@
 - [[#what-is-this][What is this?]]
 - [[#installation][Installation]]
   - [[#tools][Tools]]
-  - [[#go-mode][Go mode]]
+  - [[#go-related-installations][Go Related Installations]]
   - [[#dotspacemacs][Dotspacemacs]]
 - [[#spacemacs-centric-config][Spacemacs centric config]]
   - [[#layers][Layers]]
@@ -49,7 +49,7 @@
 #+BEGIN_SRC sh :tangle no
 brew install ripgrep
 #+END_SRC
-** Go mode
+** Go Related Installations
 #+BEGIN_SRC sh :tangle no
   go get -u -v github.com/mdempsky/gocode
   go get -u -v github.com/rogpeppe/godef

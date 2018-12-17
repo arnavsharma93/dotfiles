@@ -17,6 +17,7 @@
 - [[#user-config][User Config]]
   - [[#generic-emacs-config][Generic emacs config]]
   - [[#eshell][Eshell]]
+  - [[#flycheck][Flycheck]]
   - [[#counsel][Counsel]]
   - [[#ivy-config][Ivy config]]
   - [[#alert-config][Alert config]]
@@ -369,6 +370,16 @@ Eshell quit on =,-q= in normal mode
 
 
 
+** Flycheck
+
+Flycheck hangs up in case of huge buffers ([[https://www.reddit.com/r/emacs/comments/7mjyz8/flycheck_syntax_checking_makes_editing_files/][source]]) - found this out when profiled the code
+#+BEGIN_SRC emacs-lisp
+  (setq flycheck-idle-change-delay 3)
+  (setq flycheck-check-syntax-automatically '(save mode-enable idle-change))
+#+END_SRC
+
+#+RESULTS:
+| save | mode-enable | idle-change |
 
 ** Counsel
 Counsel Rg to truncate all lines greater than 120 lines ([[https://oremacs.com/2018/03/05/grep-exclude/][source]])

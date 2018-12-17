@@ -306,7 +306,7 @@ Overwriting spacemacs eshell popup as it does not remember history ([[https://gi
 
     ;; if current buffer is not of eshell
     ;; create a new window in the bottom third
-  ;; TODO: fix window sizes when more than one vertical split is present
+    ;; TODO: fix window sizes when more than one vertical split is present
 
     (if (not (string= (print major-mode) "eshell-mode"))
         (progn
@@ -318,13 +318,20 @@ Overwriting spacemacs eshell popup as it does not remember history ([[https://gi
     (enlarge-window-horizontally (- (/ (* (frame-width) shell-default-width)
                                        100)
                                     (window-width)))
+
     ;; if buffer name not available - create a new buffer, else switch
-    (if (not (get-buffer name))
+    (setq shellname (concat "*eshell: " name "*"))
+
+
+    ;; if name is already eshell:something - don't append eshell again
+    (when (string-match "eshell:" name)
+      (setq shellname name))
+
+    (if (not (get-buffer shellname))
         (progn
           (eshell "new")
-          (setq shellname (concat "*eshell: " name "*"))
           (rename-buffer  shellname))
-      (switch-to-buffer name))
+      (switch-to-buffer shellname))
     )
 #+END_SRC
 

@@ -24,7 +24,8 @@
   - [[#company-mode][Company mode]]
   - [[#evil-goggles][Evil goggles]]
   - [[#doom-theme-configuration][Doom theme configuration]]
-  - [[#go-mode-1][Go mode]]
+  - [[#python-mode][Python mode]]
+  - [[#go-mode][Go mode]]
   - [[#lsp-configuration][LSP configuration]]
   - [[#file-mode-configurations][File mode configurations]]
   - [[#org-mode][Org mode]]
@@ -516,6 +517,20 @@ Evil googles highlight what is yanked etc in evil mode ([[https://github.com/edk
     )
 
 #+END_SRC
+** Python mode
+
+Integrate with python virtualenvwrapper and get it working with eshell ([[https://github.com/porterjamesj/virtualenvwrapper.el][source]])
+#+BEGIN_SRC emacs-lisp
+  (use-package virtualenvwrapper
+    :ensure t
+    :config
+    (venv-initialize-eshell)
+    )
+#+END_SRC
+
+#+RESULTS:
+: t
+
 ** Go mode
 go-direx to show what all is contained in a go file. remap =,,= to =gofmt=.
 #+BEGIN_SRC emacs-lisp

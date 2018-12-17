@@ -4,12 +4,13 @@
 #+PROPERTY: header-args :tangle yes
 #+OPTIONS: toc:2
 * What is this?
-This is my spacemacs literate config. It is highly individualized. The file is tangled into =.spacemacs= at runtime using =org-babel-load-file=.
+# This is my spacemacs literate config. It is highly individualized. The file is tangled into =.spacemacs= at runtime using =org-babel-load-file=.
 * Table of Contents                                                     :TOC:
 - [[#what-is-this][What is this?]]
 - [[#installation][Installation]]
   - [[#tools][Tools]]
   - [[#go-mode][Go mode]]
+  - [[#dotspacemacs][Dotspacemacs]]
 - [[#spacemacs-centric-config][Spacemacs centric config]]
   - [[#layers][Layers]]
   - [[#styles-and-other-config][Styles and other config]]
@@ -64,6 +65,11 @@ brew install ripgrep
   go get -u github.com/josharian/impl
   go get -u github.com/jstemmer/gotags
   go get golang.org/x/tools/cmd/goimports
+#+END_SRC
+** Dotspacemacs
+Add this inside dotspacemacs to the file going, assuming the repo is checked out in the home folder
+#+BEGIN_SRC emacs-lisp :tangle no
+   (org-babel-load-file "~/dotfiles/spacemacs.org")
 #+END_SRC
 * Spacemacs centric config
 ** Layers
@@ -244,6 +250,123 @@ Reload and find my dotspacemacs configuration
     )
   (setq shell-default-shell 'eshell)
 #+END_SRC
+
+Some configuration copied from [[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][here]]
+#+BEGIN_SRC emacs-lisp
+  (use-package eshell
+    :ensure t
+    :init
+    (setq ;; eshell-buffer-shorthand t ...  Can't see Bug#19391
+     eshell-scroll-to-bottom-on-input 'all
+     eshell-error-if-no-glob t
+     eshell-history-size 50000
+     eshell-hist-ignoredups t
+     eshell-save-history-on-exit t
+     eshell-prefer-lisp-functions nil
+     eshell-destroy-buffer-when-process-dies t)
+    (add-hook 'eshell-mode-hook
+              (lambda ()
+                (add-to-list 'eshell-visual-commands "ssh")
+                (add-to-list 'eshell-visual-commands "tail")
+                (add-to-list 'eshell-visual-commands "htop")))
+    )
+#+END_SRC
+
+Enable Plan9 like smart shell ([[https://www.masteringemacs.org/article/complete-guide-mastering-eshell][source]])
+#+BEGIN_SRC emacs-lisp
+(setq shell-enable-smart-eshell t)
+#+END_SRC
+
+#+RESULTS:
+: t
+
+Clear on ~,-l~
+#+BEGIN_SRC emacs-lisp
+   (defun clear ()
+     "Clear the eshell buffer."
+     (interactive)
+     (let ((inhibit-read-only t))
+       (erase-buffer)
+       (eshell-send-input)))
+
+  (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "l" 'eshell-clear)
+#+END_SRC
+
+Get history on ~,-h~
+#+BEGIN_SRC emacs-lisp
+  (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "h" 'counsel-esh-history)
+#+END_SRC
+
+Overwriting spacemacs eshell popup as it does not remember history ([[https://github.com/syl20bnr/spacemacs/issues/8538][issue]], [[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][source]])
+#+BEGIN_SRC emacs-lisp
+  ;; create a new eshell
+  (defun eshell-new (name)
+
+    ;; if current buffer is not of eshell
+    ;; create a new window in the bottom third
+  ;; TODO: fix window sizes when more than one vertical split is present
+
+    (if (not (string= (print major-mode) "eshell-mode"))
+        (progn
+          (split-window-below (- (/ (window-total-height) 3)))
+          (windmove-down)
+
+          ))
+
+    (enlarge-window-horizontally (- (/ (* (frame-width) shell-default-width)
+                                       100)
+                                    (window-width)))
+    ;; if buffer name not available - create a new buffer, else switch
+    (if (not (get-buffer name))
+        (progn
+          (eshell "new")
+          (setq shellname (concat "*eshell: " name "*"))
+          (rename-buffer  shellname))
+      (switch-to-buffer name))
+    )
+#+END_SRC
+
+#+RESULTS:
+: eshell-new
+
+
+Call ivy to show eshell buffers - open one if buffer does not exist. Bind to ~<SPC>-'~
+#+BEGIN_SRC emacs-lisp
+
+  (defun ivy-eshell-new ()
+    (interactive)
+    ;; find all open buffers of eshell
+    (ivy-read "Eshell Buffers:" (mapcar #'buffer-name
+                                        (cl-remove-if-not
+                                         (lambda (buf)
+                                           (with-current-buffer buf
+                                             (eq major-mode 'eshell-mode)))
+                                         (buffer-list))
+                                        )
+              :action '(1
+                        ("s" eshell-new "switch to buffer"))
+              ))
+  (spacemacs/set-leader-keys
+    "'" 'ivy-eshell-new
+    )
+#+END_SRC
+
+
+Eshell quit on ~,-q~ in normal mode
+#+BEGIN_SRC emacs-lisp
+  (defun exit-eshell-and-delete-window ()
+  (interactive)
+  (eshell-life-is-too-much)
+  (delete-window))
+
+  (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "q" 'exit-eshell-and-delete-window)
+#+END_SRC
+
+#+RESULTS:
+
+
+
+
 ** Counsel
 Counsel Rg to truncate all lines greater than 120 lines ([[https://oremacs.com/2018/03/05/grep-exclude/][source]])
 #+BEGIN_SRC emacs-lisp
@@ -789,3 +912,5 @@ Remove unused buffers after a certain time
 #+END_SRC
 
 #+RESULTS:
+Wrong type argument: integer-or-marker-p, nil
+(eshell-life-is-too-much)

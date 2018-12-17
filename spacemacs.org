@@ -922,6 +922,18 @@ Exit async buffer on =q=
 
  (add-hook 'shell-mode-hook #'maybe-set-quit-key)
 #+END_SRC
+
+SHX package for extra shell niceities
+#+BEGIN_SRC emacs-lisp
+  (use-package shx
+    :ensure t
+    :config
+    (shx-global-mode 1))
+#+END_SRC
+
+#+RESULTS:
+: t
+
 ** PDF settings
 Turn off line numbering in pdf view
 #+BEGIN_SRC emacs-lisp

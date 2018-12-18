@@ -350,7 +350,7 @@ Enable Plan9 like smart shell ([[https://www.masteringemacs.org/article/complete
 
 Clear on ~leader-l~
 #+BEGIN_SRC emacs-lisp
-   (defun clear ()
+   (defun eshell-clear ()
      "Clear the eshell buffer."
      (interactive)
      (let ((inhibit-read-only t))

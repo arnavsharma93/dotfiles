@@ -201,6 +201,17 @@ Add this inside dotspacemacs to the file going, assuming the repo is checked out
 * User Config
 ** Generic emacs config
 
+Remap ~SPC-w-w~ to ~ace-window~ instead of ~other-window~
+#+BEGIN_SRC emacs-lisp
+ (spacemacs/set-leader-keys
+   "ww" 'ace-window
+   "wW" 'other-window
+   )
+
+#+END_SRC
+
+#+RESULTS:
+
 Aggressive indent
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent

@@ -1055,6 +1055,32 @@ Run to change tramp mode verbosity
 #+BEGIN_SRC emacs-lisp :tangle no
  (setq tramp-verbose 3)
 #+END_SRC
+
+#+RESULTS:
+: 3
+
+Speed up tramp on slow connections ([[https://emacs.stackexchange.com/questions/22306/working-with-tramp-mode-on-slow-connection-emacs-does-network-trip-when-i-start][source]], [[https://emacs.stackexchange.com/questions/24159/tramp-waiting-for-prompts-from-remote-shell][source]])
+#+BEGIN_SRC emacs-lisp
+  (setq disable-tramp-backups '("su" "sudo"))
+  (setq tramp-auto-save-directory "/tmp")
+  (setq tramp-ssh-controlmaster-options "")
+#+END_SRC
+
+Enviornment variables ([[https://emacs.stackexchange.com/questions/461/configuration-of-eshell-running-programs-from-directories-in-path-env-variable/2106#2106][source]])
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+#+END_SRC
+
+#+RESULTS:
+| tramp-own-remote-path | tramp-default-remote-path | /bin | /usr/bin | /sbin | /usr/sbin | /usr/local/bin | /usr/local/sbin | /local/bin | /local/freeware/bin | /local/gnu/bin | /usr/freeware/bin | /usr/pkg/bin | /usr/contrib/bin | /opt/bin | /opt/sbin | /opt/local/bin |
+
+Add this to your ~.ssh/config~
+#+BEGIN_SRC sh :tangle no
+Host *
+ControlMaster auto
+ControlPath ~/.ssh/sockets/%r@%h-%p
+ControlPersist 600
+#+END_SRC
 ** Avy
 Set timeout for avy timer
 #+BEGIN_SRC emacs-lisp

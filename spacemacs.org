@@ -632,10 +632,16 @@ go-direx to show what all is contained in a go file. remap ~leaderredael~ to =go
   (use-package go-direx
     :ensure t
     :config
-    (spacemacs/set-leader-keys-for-major-mode 'go-mode "=" 'go-direx-pop-to-buffer)
-    (spacemacs/set-leader-keys-for-major-mode 'go-mode "," 'gofmt)
     )
+
+  (spacemacs/set-leader-keys-for-major-mode 'go-mode "=" 'go-direx-pop-to-buffer)
+  (spacemacs/set-leader-keys-for-major-mode 'go-mode "," 'gofmt)
 #+END_SRC
+
+#+RESULTS:
+
+#+RESULTS:
+| aggressive-indent-mode | real-auto-save-mode | spacemacs//go-set-tab-width | go-eldoc-setup | spacemacs//init-jump-handlers-go-mode | spacemacs//init-company-go-mode | spacemacs//init-company-vars-go-mode | company-mode |
 
 Use much better godoc at point function
 #+BEGIN_SRC emacs-lisp
@@ -649,8 +655,10 @@ Set tab width to 4
 
 Run goformat before save
 #+BEGIN_SRC emacs-lisp
- (setq go-format-before-save t)
+ (setq go-format-before-save nil)
 #+END_SRC
+
+#+RESULTS:
 
 Run goimports on save
 #+BEGIN_SRC emacs-lisp

@@ -532,8 +532,11 @@ Low company idle delay
 
 Trigger company completion everytime
 #+BEGIN_SRC emacs-lisp
-  (setq company-minimum-prefix-length 0)
+  (setq company-minimum-prefix-length 1)
 #+END_SRC
+
+#+RESULTS:
+: 1
 
 Trigger company completion only when 3 chars have been typed. Currently disabled.
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -563,6 +566,13 @@ Don't do anything on return as prefix length is zero
 #+BEGIN_SRC emacs-lisp
  (setq auto-completion-return-key-behavior nil)
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq company-tooltip-align-annotations t)
+#+END_SRC
+
+#+RESULTS:
+: t
 
 Autocomplete on ~jk~
 #+BEGIN_SRC emacs-lisp

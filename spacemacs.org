@@ -29,6 +29,7 @@
   - [[#lsp-configuration][LSP configuration]]
   - [[#file-mode-configurations][File mode configurations]]
   - [[#org-mode][Org mode]]
+    - [[#org-brain][Org brain]]
     - [[#babel-settings][Babel settings]]
     - [[#custom-functions][Custom functions]]
     - [[#column-view][Column view]]
@@ -702,6 +703,30 @@ Enable emacs mode depending on the file format
   (add-to-list 'auto-mode-alist '("\\.zsh\\'" . sh-mode))
 #+END_SRC
 ** Org mode
+*** Org brain
+:PROPERTIES:
+:ID:       64E38B2F-9643-4A02-A1C2-0B08E7F662D0
+:END:
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package org-brain :ensure t
+  :init
+  (setq org-brain-path "~/Dropbox/org/brain")
+  ;; For Evil users
+  (with-eval-after-load 'evil
+    (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+  :config
+  (setq org-id-track-globally t)
+  (setq org-id-locations-file "~/.emacs.d/.org-id-locations")
+  (push '("b" "Brain" plain (function org-brain-goto-end)
+          "* %i%?" :empty-lines 1)
+        org-capture-templates)
+  (setq org-brain-visualize-default-choices 'all)
+  (setq org-brain-title-max-length 12))
+#+END_SRC
+
+#+RESULTS:
+: t
+
 *** Babel settings
 Don't ask confirmation while executing in org buffers
 #+BEGIN_SRC emacs-lisp
@@ -709,7 +734,7 @@ Don't ask confirmation while executing in org buffers
 #+END_SRC
 *** Custom functions
 A nifty function to insert current time in the buffer. Bound to ~leader;~
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
     (defvar current-time-format "%H:%M"
       "Format of date to insert with `insert-current-time' func.
   Note the weekly scope of the command's precision.")
@@ -723,7 +748,7 @@ A nifty function to insert current time in the buffer. Bound to ~leader;~
 #+END_SRC
 *** Column view
 Column view default columns
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
  (setq org-agenda-overriding-columns-format "%7TODO(Todo) %40ITEM(Task) %TAGS(Tags) %6CLOCKSUM(Actual) %8Effort(Estimate){:}")
 #+END_SRC
 TODO states
@@ -735,7 +760,7 @@ TODO states
 #+END_SRC
 *** Clocking
 Clocking configuration
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; Resume clocking task when emacs is restarted
   (org-clock-persistence-insinuate)
   ;; Save the running clock and all clock history when exiting Emacs, load it on startup
@@ -767,7 +792,7 @@ Clocking configuration
  (spacemacs/toggle-mode-line-org-clock-on)
 #+END_SRC
 Clocking and other keybindings
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
  (spacemacs/set-leader-keys-for-major-mode 'org-mode "c" nil)
  (spacemacs/set-leader-keys-for-major-mode 'org-mode "I" nil)
  (spacemacs/set-leader-keys-for-major-mode 'org-mode "O" nil)
@@ -792,9 +817,12 @@ Indent in org mode
 #+END_SRC
 
 Enable org autolist mode
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
  (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
 #+END_SRC
+
+#+RESULTS:
+| (lambda nil (org-autolist-mode)) | real-auto-save-mode | toc-org-mode | org-indent-mode | org-clock-load | ob-ipython-auto-configure-kernels | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-block-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | spacemacs/org-setup-evil-surround | spacemacs/load-yasnippet | toc-org-enable | org-download-enable | org-bullets-mode | dotspacemacs//prettify-spacemacs-docs | spacemacs//org-babel-do-load-languages | spacemacs//evil-org-mode | org-eldoc-load | spacemacs//init-company-org-mode | company-mode |
 
 Keep super and subscripts as it is
 #+BEGIN_SRC emacs-lisp

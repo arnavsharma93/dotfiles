@@ -43,6 +43,7 @@
   - [[#autosave-go-and-emacs-buffer][Autosave go and emacs buffer]]
   - [[#tramp-mode][Tramp mode]]
   - [[#avy][Avy]]
+  - [[#helpful][Helpful]]
   - [[#midnight][Midnight]]
 - [[#finish-loading][Finish loading]]
 
@@ -1155,6 +1156,22 @@ Set timeout for avy timer
 #+BEGIN_SRC emacs-lisp
  (setq avy-timeout-seconds 0.5)
 #+END_SRC
+** Helpful
+#+BEGIN_SRC emacs-lisp
+  (use-package helpful
+    :ensure t)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+ (spacemacs/set-leader-keys
+   "hdf" 'helpful-callable
+   "hdv" 'helpful-variable
+   "hdk" 'helpful-key
+   "hdd" 'helpful-at-point
+   )
+
+#+END_SRC
+#+RESULTS:
+
 ** Midnight
 Remove unused buffers after a certain time
 

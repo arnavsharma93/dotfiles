@@ -576,12 +576,11 @@ Trigger company completion everytime
 
 Trigger company completion only when 3 chars have been typed. Currently disabled.
 #+BEGIN_SRC emacs-lisp :tangle no
-  (add-hook 'org-mode-hook
-            (lambda () ((setq (make-local-variable 'company-minimum-prefix-length) 3))
-                        ))
+(spacemacs|disable-company org-mode)
 #+END_SRC
 
 #+RESULTS:
+| real-auto-save-mode | toc-org-mode | (lambda nil (org-autolist-mode)) | org-indent-mode | ob-ipython-auto-configure-kernels | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-block-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | spacemacs/org-setup-evil-surround | spacemacs/load-yasnippet | toc-org-enable | org-download-enable | org-bullets-mode | dotspacemacs//prettify-spacemacs-docs | spacemacs//org-babel-do-load-languages | spacemacs//evil-org-mode | org-eldoc-load |
 
 Don't downcase in case of company autocomplete
 #+BEGIN_SRC emacs-lisp

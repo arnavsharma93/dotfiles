@@ -26,18 +26,18 @@ to your user config.
 
 | Key Bindings | Description                    |
 |--------------+--------------------------------|
-| "SPC-amp"    | ~spotify-toggle-play~          |
-| "SPC-amr"    | ~spotify-toggle-repeat~        |
-| "SPC-amS"    | ~spotify-toggle-shuffle~       |
-| "SPC-amj"    | ~spotify-previous-track~       |
-| "SPC-amk"    | ~spotify-next-track~           |
-| "SPC-amPm"   | ~spotify-my-playlists~         |
-| "SPC-amPf"   | ~spotify-featured-playlists~   |
-| "SPC-amPu"   | ~spotify-user-playlists~       |
-| "SPC-amPs"   | ~spotify-playlist-search~      |
-| "SPC-amPc"   | ~spotify-api-playlist-create~  |
-| "SPC-ams"    | ~spotify-track-search~         |
-| "SPC-amm"    | ~my-spotify-get-buffers~       |
-| "SPC-amD"    | ~my-spotify-delete-all-buffers~ |
+| ~SPC-amp~    | ~spotify-toggle-play~          |
+| ~SPC-amr~    | ~spotify-toggle-repeat~        |
+| ~SPC-amS~    | ~spotify-toggle-shuffle~       |
+| ~SPC-amj~    | ~spotify-previous-track~       |
+| ~SPC-amk~    | ~spotify-next-track~           |
+| ~SPC-amPm~   | ~spotify-my-playlists~         |
+| ~SPC-amPf~   | ~spotify-featured-playlists~   |
+| ~SPC-amPu~   | ~spotify-user-playlists~       |
+| ~SPC-amPs~   | ~spotify-playlist-search~      |
+| ~SPC-amPc~   | ~spotify-api-playlist-create~  |
+| ~SPC-ams~    | ~spotify-track-search~         |
+| ~SPC-amm~    | ~my-spotify-get-buffers~       |
+| ~SPC-amD~    | ~my-spotify-delete-all-buffers~ |
 
 Similar keybindings are available in the ~spotify-remote-mode~ bound to the leader key

@@ -1,0 +1,43 @@
+#+TITLE: my-spotify layer
+
+
+# TOC links should be GitHub style anchors.
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+  - [[#features][Features:]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer wraps [[https://github.com/danielfm/spotify.el][spotify.el]] in a spacemacs layer, providing basic integration with [[https://github.com/abo-abo/swiper][Ivy]] to recover existing recipes.
+
+** Features:
+- Keybindings with leader keys
+- Ivy to recover existing searches, and make new searches
+- Delete all spotiy buffers
+
+* Install
+To install this, place the layer inside your ~dotspacemacs-configuration-layer-path~. Follow the steps listed in [[https://github.com/danielfm/spotify.el][spotify.el]]
+to add ~(setq spotify-oauth2-client-secret "<spotify-app-client-secret>")~, ~(setq spotify-oauth2-client-id "<spotify-app-client-id>")~
+to your user config.
+
+* Key bindings
+
+
+| Key Bindings | Description                    |
+|--------------+--------------------------------|
+| "SPC-amp"    | ~spotify-toggle-play~          |
+| "SPC-amr"    | ~spotify-toggle-repeat~        |
+| "SPC-amS"    | ~spotify-toggle-shuffle~       |
+| "SPC-amj"    | ~spotify-previous-track~       |
+| "SPC-amk"    | ~spotify-next-track~           |
+| "SPC-amPm"   | ~spotify-my-playlists~         |
+| "SPC-amPf"   | ~spotify-featured-playlists~   |
+| "SPC-amPu"   | ~spotify-user-playlists~       |
+| "SPC-amPs"   | ~spotify-playlist-search~      |
+| "SPC-amPc"   | ~spotify-api-playlist-create~  |
+| "SPC-ams"    | ~spotify-track-search~         |
+| "SPC-amm"    | ~my-spotify-get-buffers~       |
+| "SPC-amD"    | ~my-spotify-delete-all-buffers~ |
+
+Similar keybindings are available in the ~spotify-remote-mode~ bound to the leader key

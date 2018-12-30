@@ -217,7 +217,7 @@ Remap ~SPC-w-w~ to ~ace-window~ instead of ~other-window~
 Aggressive indent
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent
-    :ensure t
+    :defer t
     :config
     (setq-default aggressive-indent-comments-too t)
     (add-hook 'go-mode-hook #'aggressive-indent-mode)
@@ -230,7 +230,7 @@ Aggressive indent
 TLDR for documentation
 #+BEGIN_SRC emacs-lisp
 (use-package tldr
-:ensure t)
+:defer t)
 #+END_SRC
 
 Dired Hydra taken from ([[https://github.com/abo-abo/hydra/wiki/Dired][source]])
@@ -333,36 +333,59 @@ Reload and find my dotspacemacs configuration
 
 #+END_SRC
 
+** JSON Mode
+#+BEGIN_SRC emacs-lisp
+  (spacemacs/set-leader-keys-for-major-mode 'json-mode "=" 'json-mode-beautify)
+#+END_SRC
+
+#+RESULTS:
+
 ** Eshell
 [[https://gitlab.com/ambrevar/emacs-fish-completion][Fish like completion]] to help with completion in eshell
 #+BEGIN_SRC emacs-lisp
   (use-package fish-completion
-    :ensure t
+    :defer t
     :config
     (global-fish-completion-mode)
     )
   (setq shell-default-shell 'eshell)
+
+  #+END_SRC
+
+
+Aliases
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'eshell-mode-hook (lambda ()
+      (eshell/alias "fa" "counsel-projectile-find-file $1")
+      (eshell/alias "ff" "counsel-find-file $1")
+      (eshell/alias "ll" "ls -l $*")
+      (eshell/alias "w" "ace-window $1")
+      (eshell/alias "q" "delete-window")
+      (eshell/alias "d" "dired $1")
+      (eshell/alias "s" "magit-status")
+      (eshell/alias "m" "spacemacs/toggle-maximize-buffer")
+      ))
 #+END_SRC
+
+#+RESULTS:
+| (lambda nil (eshell/alias fa counsel-projectile-find-file $1) (eshell/alias ff counsel-find-file $1) (eshell/alias ll ls -l $*) (eshell/alias w ace-window $1) (eshell/alias q delete-window) (eshell/alias d dired $1) (eshell/alias s magit-status) (eshell/alias m spacemacs/toggle-maximize-buffer)) | (lambda nil (eshell/alias fa counsel-projectile-find-file $1) (eshell/alias ff counsel-find-file $1) (eshell/alias ll ls -l $*) (eshell/alias w ace-window $1) (eshell/alias q delete-window) (eshell/alias d dired $1) (eshell/alias s magit-status)) | (lambda nil (eshell/alias fa counsel-projectile-find-file $1) (eshell/alias ff counsel-find-file $1) (eshell/alias ll ls -l $*) (eshell/alias d dired $1) (eshell/alias s magit-status)) | with-editor-export-editor | (lambda nil (add-to-list (quote eshell-visual-commands) ssh) (add-to-list (quote eshell-visual-commands) tail) (add-to-list (quote eshell-visual-commands) htop)) | tramp-eshell-directory-change | spacemacs/disable-vi-tilde-fringe | spacemacs/force-yasnippet-off | spacemacs/init-eshell-xterm-color | spacemacs//eshell-switch-company-frontend | spacemacs/disable-hl-line-mode | spacemacs//init-eshell | eldoc-mode | spacemacs//init-company-eshell-mode | company-mode |
+
 
 Some configuration copied from [[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][here]]
 #+BEGIN_SRC emacs-lisp
-  (use-package eshell
-    :ensure t
-    :init
-    (setq ;; eshell-buffer-shorthand t ...  Can't see Bug#19391
-     eshell-scroll-to-bottom-on-input 'all
-     eshell-error-if-no-glob t
-     eshell-history-size 50000
-     eshell-hist-ignoredups t
-     eshell-save-history-on-exit t
-     eshell-prefer-lisp-functions nil
-     eshell-destroy-buffer-when-process-dies t)
-    (add-hook 'eshell-mode-hook
-              (lambda ()
-                (add-to-list 'eshell-visual-commands "ssh")
-                (add-to-list 'eshell-visual-commands "tail")
-                (add-to-list 'eshell-visual-commands "htop")))
-    )
+  (setq ;; eshell-buffer-shorthand t ...  Can't see Bug#19391
+   eshell-scroll-to-bottom-on-input 'all
+   eshell-error-if-no-glob t
+   eshell-history-size 50000
+   eshell-hist-ignoredups t
+   eshell-save-history-on-exit t
+   eshell-prefer-lisp-functions nil
+   eshell-destroy-buffer-when-process-dies t)
+  (add-hook 'eshell-mode-hook
+            (lambda ()
+              (add-to-list 'eshell-visual-commands "ssh")
+              (add-to-list 'eshell-visual-commands "tail")
+              (add-to-list 'eshell-visual-commands "htop")))
 #+END_SRC
 
 Enable Plan9 like smart shell ([[https://www.masteringemacs.org/article/complete-guide-mastering-eshell][source]])
@@ -528,7 +551,7 @@ Enable switching to the /special/ buffers & create and set a view ([[http://irre
 ** Alert config
 #+BEGIN_SRC emacs-lisp
   (use-package alert
-  :ensure t
+  :defer t
   :config
   (setq alert-default-style 'osx-notifier)
   )
@@ -630,7 +653,7 @@ Evil googles highlight what is yanked etc in evil mode ([[https://github.com/edk
 Integrate with python virtualenvwrapper and get it working with eshell ([[https://github.com/porterjamesj/virtualenvwrapper.el][source]])
 #+BEGIN_SRC emacs-lisp
   (use-package virtualenvwrapper
-    :ensure t
+    :defer t
     :config
     (venv-initialize-eshell)
     )
@@ -643,7 +666,7 @@ Integrate with python virtualenvwrapper and get it working with eshell ([[https:
 go-direx to show what all is contained in a go file. remap ~leaderredael~ to =gofmt=.
 #+BEGIN_SRC emacs-lisp
   (use-package go-direx
-    :ensure t
+    :defer t
     :config
     )
 
@@ -842,7 +865,7 @@ Remap ~C-'~ to nil so that avy can work as expected
 Adding [[https://github.com/snosov1/toc-org/blob/master/README.org][toc-org]] to generate toc for github in buffer
 #+BEGIN_SRC emacs-lisp
   (use-package toc-org
-    :ensure t
+    :defer t
     :config
     (add-hook 'org-mode-hook 'toc-org-mode)
     (add-to-list 'org-tag-alist '("TOC" . ?T))
@@ -852,12 +875,11 @@ Adding [[https://github.com/snosov1/toc-org/blob/master/README.org][toc-org]] to
 #+RESULTS:
 : t
 
-
 *** Export
 Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839/exporting-code-blocks-to-pdf-via-latex][source]])
 #+BEGIN_SRC emacs-lisp
  (use-package org
-   :ensure t
+   :defer t
    :config
    (progn
      ;; (use-package ox-latex :ensure t)
@@ -1013,7 +1035,7 @@ Show branch name before tags
 Hydra for resolving merge conflicts ([[https://github.com/alphapapa/unpackaged.el#smerge-mode][source]])
 #+BEGIN_SRC emacs-lisp
   (use-package smerge-mode
-    :ensure t
+    :defer t
     :config
     (defhydra unpackaged/smerge-hydra
       (:color pink :hint nil :post (smerge-auto-leave))
@@ -1084,7 +1106,7 @@ Exit async buffer on ~q~
 SHX package for extra shell niceities
 #+BEGIN_SRC emacs-lisp
   (use-package shx
-    :ensure t
+    :defer t
     :config
     (shx-global-mode 1))
 #+END_SRC
@@ -1159,7 +1181,7 @@ Set timeout for avy timer
 ** Helpful
 #+BEGIN_SRC emacs-lisp
   (use-package helpful
-    :ensure t)
+    :defer t)
 #+END_SRC
 #+BEGIN_SRC emacs-lisp
  (spacemacs/set-leader-keys

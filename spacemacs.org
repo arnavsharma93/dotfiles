@@ -16,6 +16,7 @@
   - [[#styles-and-other-config][Styles and other config]]
 - [[#user-config][User Config]]
   - [[#generic-emacs-config][Generic emacs config]]
+  - [[#json-mode][JSON Mode]]
   - [[#eshell][Eshell]]
   - [[#flycheck][Flycheck]]
   - [[#counsel][Counsel]]
@@ -50,7 +51,7 @@
 * Installation
 ** Tools
 #+BEGIN_SRC sh :tangle no
-brew install ripgrep
+  brew install ripgrep
 #+END_SRC
 ** Go Related Installations
 #+BEGIN_SRC sh :tangle no
@@ -105,10 +106,11 @@ Add this inside dotspacemacs to the file going, assuming the repo is checked out
        yaml
        shell
        syntax-checking
-       spotify
+       my-spotify
        latex
        treemacs
        chrome
+       docker
        )
 
      dotspacemacs-additional-packages '(fish-completion
@@ -127,6 +129,10 @@ Add this inside dotspacemacs to the file going, assuming the repo is checked out
      dotspacemacs-delete-orphan-packages t
      ))
 #+END_SRC
+
+#+RESULTS:
+: dotspacemacs/layers
+
 ** Styles and other config
 #+BEGIN_SRC emacs-lisp :tangle no
   (defun dotspacemacs/init ()
@@ -478,18 +484,17 @@ Call ivy to show eshell buffers - open one if buffer does not exist. Bind to ~SP
 Eshell quit on ~leader-q~ in normal mode
 #+BEGIN_SRC emacs-lisp
   (defun exit-eshell-and-delete-window ()
-  (interactive)
-  (eshell-life-is-too-much)
-  (delete-window))
+    (interactive)
+    (eshell-life-is-too-much)
+    (delete-window))
 
   (defun delete-eshell-window ()
-  (interactive)
-  (delete-window))
+    (interactive)
+    (delete-window))
 
   (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "Q" 'exit-eshell-and-delete-window)
   (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "q" 'delete-eshell-window)
 #+END_SRC
-
 
 
 ** Flycheck
@@ -727,9 +732,7 @@ Enable emacs mode depending on the file format
 #+END_SRC
 ** Org mode
 *** Org brain
-:PROPERTIES:
-:ID:       64E38B2F-9643-4A02-A1C2-0B08E7F662D0
-:END:
+Org brain config. Disabled for now.
 #+BEGIN_SRC emacs-lisp :tangle no
 (use-package org-brain :ensure t
   :init

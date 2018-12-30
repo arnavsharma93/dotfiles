@@ -444,10 +444,6 @@ Overwriting spacemacs eshell popup as it does not remember history ([[https://gi
 
           ))
 
-    (enlarge-window-horizontally (- (/ (* (frame-width) shell-default-width)
-                                       100)
-                                    (window-width)))
-
     ;; if buffer name not available - create a new buffer, else switch
     (setq shellname (concat "*eshell: " name "*"))
 

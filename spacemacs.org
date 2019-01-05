@@ -410,11 +410,10 @@ Some configuration copied from [[https://github.com/howardabrams/dot-files/blob/
 
 Enable Plan9 like smart shell ([[https://www.masteringemacs.org/article/complete-guide-mastering-eshell][source]])
 #+BEGIN_SRC emacs-lisp
-(setq shell-enable-smart-eshell t)
+(setq shell-enable-smart-eshell nil)
 #+END_SRC
 
 #+RESULTS:
-: t
 
 Clear on ~leader-l~
 #+BEGIN_SRC emacs-lisp

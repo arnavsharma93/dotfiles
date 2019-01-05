@@ -25,8 +25,7 @@ search on spotify."
 else search spotify"
   (if (not (get-buffer name))
       (spotify-track-search ivy-text)
-    (switch-to-buffer-other-window name))
-  )
+    (switch-to-buffer-other-window name)))
 
 (defun my-spotify-delete-all-buffers()
   "delete all spotify el buffers"

@@ -486,8 +486,11 @@ Call ivy to show eshell buffers - open one if buffer does not exist. Bind to ~SP
               ))
   (spacemacs/set-leader-keys
     "'" 'ivy-eshell-new
+    "p'" 'projectile-run-eshell
     )
 #+END_SRC
+
+#+RESULTS:
 
 
 Eshell quit on ~leader-q~ in normal mode

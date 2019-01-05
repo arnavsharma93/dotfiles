@@ -801,6 +801,7 @@ Enable emacs mode depending on the file format
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.avsc\\'" . json-mode))
+  (add-to-list 'auto-mode-alist '("\\.lock\\'" . toml-mode))
   (add-to-list 'auto-mode-alist '("\\.csv\\'" . org-mode))
   (add-to-list 'auto-mode-alist '("\\.zsh\\'" . sh-mode))
 #+END_SRC

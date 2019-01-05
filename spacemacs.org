@@ -591,17 +591,20 @@ Remap ~counsel-projectile-find-file~ to ~pa~ and use ~counsel-git~ as ~pf~
 ** Ivy config
 Define ivy builders per function ([[https://emacs.stackexchange.com/questions/36745/enable-ivy-fuzzy-matching-everywhere-except-in-swiper][related source]])
 #+BEGIN_SRC emacs-lisp
- (setq ivy-re-builders-alist '((counsel-M-x . ivy--regex-fuzzy)
-                               (counsel-describe-function . ivy--regex-fuzzy)
-                               (counsel-git . ivy--regex-fuzzy)
-                               (counsel-projectile-find-file . ivy--regex-fuzzy)
-                               (counsel-find-file . ivy--regex-fuzzy)
-                               (counsel-describe-variable . ivy--regex-fuzzy)
-                               (spacemacs/counsel-search . spacemacs/ivy--regex-plus)
-                               (t . ivy--regex-ignore-order))
+  (setq ivy-re-builders-alist '((counsel-M-x . ivy--regex-plus)
+                                (counsel-describe-function . ivy--regex-plus)
+                                (counsel-git . ivy--regex-fuzzy)
+                                (counsel-projectile-find-file . ivy--regex-plus)
+                                (counsel-find-file . ivy--regex-fuzzy)
+                                (counsel-describe-variable . ivy--regex-plus)
+                                (spacemacs/counsel-search . spacemacs/ivy--regex-plus)
+                                (t . ivy--regex-ignore-order))
 
-  )
+   )
 #+END_SRC
+
+#+RESULTS:
+: ((counsel-M-x . ivy--regex-plus) (counsel-describe-function . ivy--regex-plus) (counsel-git . ivy--regex-fuzzy) (counsel-projectile-find-file . ivy--regex-plus) (counsel-find-file . ivy--regex-fuzzy) (counsel-describe-variable . ivy--regex-plus) (spacemacs/counsel-search . spacemacs/ivy--regex-plus) (t . ivy--regex-ignore-order))
 
 Enable switching to the /special/ buffers & create and set a view ([[http://irreal.org/blog/?p=5355][source]])
 #+BEGIN_SRC emacs-lisp
@@ -1252,11 +1255,24 @@ Map ~/~ to run avy timer
 
 #+RESULTS:
 : avy-goto-char-timer
+
 ** Helpful
 #+BEGIN_SRC emacs-lisp
   (use-package helpful
-    :defer t)
+    :defer t
+    :config
+    (push (cons #'helpful-functions #'ivy--regex-plus)
+          ivy-re-builders-alist)
+
+    (push (cons #'helpful-variables #'ivy--regex-plus)
+          ivy-re-builders-alist)
+
+    )
 #+END_SRC
+
+#+RESULTS:
+: t
+
 #+BEGIN_SRC emacs-lisp
  (spacemacs/set-leader-keys
    "hdf" 'helpful-callable

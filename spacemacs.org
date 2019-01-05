@@ -735,19 +735,12 @@ Integrate with python virtualenvwrapper and get it working with eshell ([[https:
 : t
 
 ** Go mode
-go-direx to show what all is contained in a go file. remap ~leaderredael~ to =gofmt=.
 Gofmt and goimports settings
 #+BEGIN_SRC emacs-lisp
-  (use-package go-direx
-    :defer t
-    :config
-    )
   ;; set gofmt as the gofmt command and run it on save
    (setq gofmt-command "gofmt")
    (setq go-format-before-save t)
 
-  (spacemacs/set-leader-keys-for-major-mode 'go-mode "=" 'go-direx-pop-to-buffer)
-#+END_SRC
    (defun run-go-imports-and-save()
    "run goimports and save"
      (interactive)
@@ -757,7 +750,7 @@ Gofmt and goimports settings
        (save-buffer)))
    (spacemacs/set-leader-keys-for-major-mode 'go-mode "," 'run-go-imports-and-save)
 
-#+RESULTS:
+#+END_SRC
 
 #+RESULTS:
 | aggressive-indent-mode | real-auto-save-mode | spacemacs//go-set-tab-width | go-eldoc-setup | spacemacs//init-jump-handlers-go-mode | spacemacs//init-company-go-mode | spacemacs//init-company-vars-go-mode | company-mode |
@@ -772,33 +765,34 @@ Set tab width to 4
  (setq go-tab-width 4)
 #+END_SRC
 
-Run goformat before save
+Use gocheck for testing
 #+BEGIN_SRC emacs-lisp
- (setq go-format-before-save nil)
+(setq go-use-gocheck-for-testing nil)
 #+END_SRC
 
 #+RESULTS:
 
-Run goimports on save
+Use golangci as linter instead of gometaliner
 #+BEGIN_SRC emacs-lisp
- (setq gofmt-command "goimports")
+(setq go-use-golangci-lint t)
 #+END_SRC
 
-Use gocheck for testing
+#+RESULTS:
+: t
 ** Projectile
 #+BEGIN_SRC emacs-lisp
-(setq go-use-gocheck-for-testing t)
-#+END_SRC
   (use-package projectile
     :defer t
     :config
     (add-to-list 'projectile-globally-ignored-directories "vendor" ".gen")
     (setq projectile-sort-order 'recentf)
 
-Use golangci as linter instead of gometaliner
-#+BEGIN_SRC emacs-lisp
-(setq go-use-golangci-lint t)
+    )
 #+END_SRC
+
+#+RESULTS:
+: t
+
 ** LSP configuration
 Langauge Server settings. Currently disabled.
 
@@ -816,6 +810,7 @@ Enable emacs mode depending on the file format
   (add-to-list 'auto-mode-alist '("\\.csv\\'" . org-mode))
   (add-to-list 'auto-mode-alist '("\\.zsh\\'" . sh-mode))
 #+END_SRC
+
 ** Org mode
 *** Org brain
 Org brain config. Disabled for now.

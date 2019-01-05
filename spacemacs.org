@@ -736,15 +736,26 @@ Integrate with python virtualenvwrapper and get it working with eshell ([[https:
 
 ** Go mode
 go-direx to show what all is contained in a go file. remap ~leaderredael~ to =gofmt=.
+Gofmt and goimports settings
 #+BEGIN_SRC emacs-lisp
   (use-package go-direx
     :defer t
     :config
     )
+  ;; set gofmt as the gofmt command and run it on save
+   (setq gofmt-command "gofmt")
+   (setq go-format-before-save t)
 
   (spacemacs/set-leader-keys-for-major-mode 'go-mode "=" 'go-direx-pop-to-buffer)
-  (spacemacs/set-leader-keys-for-major-mode 'go-mode "," 'gofmt)
 #+END_SRC
+   (defun run-go-imports-and-save()
+   "run goimports and save"
+     (interactive)
+     (let (gofmt-command)
+       (setq gofmt-command "goimports")
+       (gofmt)
+       (save-buffer)))
+   (spacemacs/set-leader-keys-for-major-mode 'go-mode "," 'run-go-imports-and-save)
 
 #+RESULTS:
 

@@ -668,8 +668,11 @@ Autocomplete sort by word usage
 
 Don't do anything on return as prefix length is zero
 #+BEGIN_SRC emacs-lisp
- (setq auto-completion-return-key-behavior nil)
+ (setq auto-completion-return-key-behavior 'complete)
 #+END_SRC
+
+#+RESULTS:
+: complete
 
 #+BEGIN_SRC emacs-lisp
 (setq company-tooltip-align-annotations t)

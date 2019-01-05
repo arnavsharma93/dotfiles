@@ -581,8 +581,8 @@ Ivy occur remapping to ~C-c o~ ([[https://oremacs.com/2015/11/04/ivy-occur/][sou
   (define-key ivy-minibuffer-map (kbd "C-c o") 'ivy-occur)
 #+END_SRC
 
-Remap ~counsel-projectile-find-file~ to ~pa~ and use ~counsel-git~ as ~pf~
-#+BEGIN_SRC emacs-lisp
+Remap ~counsel-projectile-find-file~ to ~pa~ and use ~counsel-git~ as ~pf~ (disabled)
+#+BEGIN_SRC emacs-lisp :tangle no
  (spacemacs/set-leader-keys
    "pa" 'counsel-projectile-find-file
    "pf" 'counsel-git

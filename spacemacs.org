@@ -28,6 +28,7 @@
   - [[#doom-theme-configuration][Doom theme configuration]]
   - [[#python-mode][Python mode]]
   - [[#go-mode][Go mode]]
+  - [[#projectile][Projectile]]
   - [[#lsp-configuration][LSP configuration]]
   - [[#file-mode-configurations][File mode configurations]]
   - [[#org-mode][Org mode]]
@@ -773,9 +774,15 @@ Run goimports on save
 #+END_SRC
 
 Use gocheck for testing
+** Projectile
 #+BEGIN_SRC emacs-lisp
 (setq go-use-gocheck-for-testing t)
 #+END_SRC
+  (use-package projectile
+    :defer t
+    :config
+    (add-to-list 'projectile-globally-ignored-directories "vendor" ".gen")
+    (setq projectile-sort-order 'recentf)
 
 Use golangci as linter instead of gometaliner
 #+BEGIN_SRC emacs-lisp

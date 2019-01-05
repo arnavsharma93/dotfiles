@@ -18,6 +18,7 @@
   - [[#generic-emacs-config][Generic emacs config]]
   - [[#json-mode][JSON Mode]]
   - [[#eshell][Eshell]]
+  - [[#snipe][Snipe]]
   - [[#flycheck][Flycheck]]
   - [[#counsel][Counsel]]
   - [[#ivy-config][Ivy config]]
@@ -502,16 +503,65 @@ Eshell quit on ~leader-q~ in normal mode
 #+END_SRC
 
 
+** Snipe
+[[https://github.com/hlissner/evil-snipe][Evil Snipe]] to supplement avy to move quickly in a line.
+#+BEGIN_SRC emacs-lisp
+
+  (use-package evil-snipe
+    ;; load on startup
+    :ensure t
+
+    :init
+    (setq evil-snipe-scope 'line ;; set scope to line
+          evil-snipe-enable-highlight t ;; show highlight
+          evil-snipe-enable-incremental-highlight t ;; show incremental highlight
+          evil-snipe-auto-disable-substitute t ;; needed to make snipe run
+          evil-snipe-show-prompt t ;; show 1,2 in the mode line below
+          evil-snipe-repeat-keys t ;; multiple presses of f/t takes you forward
+          evil-snipe-smart-case t) ;; make snipe handle smart cases
+    :config
+    ;; enable snipe mode
+    (evil-snipe-mode 1)
+
+    ;; modify spacemacs modeline
+    (spacemacs|hide-lighter evil-snipe-local-mode)
+    ;; override evil f and set everywhere
+    (evil-snipe-def 2 'inclusive "f" "F")
+    (evil-define-key '(normal motion operator visual) evil-snipe-local-mode-map
+      "f" 'evil-snipe-f
+      "F" 'evil-snipe-F)
+    ;; override evil t and set everywhere
+    (evil-snipe-def 1 'exclusive "t" "T")
+    (evil-define-key '(normal motion operator visual) evil-snipe-local-mode-map
+      "t" 'evil-snipe-t
+      "T" 'evil-snipe-T)
+    ;; unmap default keybindings
+    (evil-define-key '(normal motion) evil-snipe-local-mode-map
+      "s" nil
+      "S" nil)
+    (evil-define-key '(operator) evil-snipe-local-mode-map
+      "x" nil
+      "X" nil)
+    (evil-define-key '(operator) evil-snipe-local-mode-map
+      "z" nil
+      "Z" nil)
+    (push '(?\[ "[[{(]") evil-snipe-aliases)
+    (add-hook 'magit-mode-hook 'turn-off-evil-snipe-mode))
+#+END_SRC
+
+#+RESULTS:
+: t
+
 ** Flycheck
 
 Flycheck hangs up in case of huge buffers ([[https://www.reddit.com/r/emacs/comments/7mjyz8/flycheck_syntax_checking_makes_editing_files/][source]]) - found this out when profiled the code
 #+BEGIN_SRC emacs-lisp
   (setq flycheck-idle-change-delay 3)
-  (setq flycheck-check-syntax-automatically '(save mode-enable idle-change))
+  (setq flycheck-check-syntax-automatically '(save mode-enable))
 #+END_SRC
 
 #+RESULTS:
-| save | mode-enable | idle-change |
+| save | mode-enable |
 
 ** Counsel
 Counsel Rg to truncate all lines greater than 120 lines ([[https://oremacs.com/2018/03/05/grep-exclude/][source]])

@@ -212,20 +212,23 @@ Add this inside dotspacemacs to the file going, assuming the repo is checked out
 
 Remap ~SPC-w-w~ to ~ace-window~ instead of ~other-window~
 #+BEGIN_SRC emacs-lisp
-  (spacemacs/set-leader-keys
-    "ww" 'ace-window
-    "wW" 'other-window
-    )
+    (spacemacs/set-leader-keys
+      "ww" 'ace-window
+      "wW" 'other-window
+      )
 
-    (set-face-attribute
-     'aw-leading-char-face nil
-     :foreground "gray"
-     :weight 'bold
-     :height 2.0)
-    (set-face-attribute
-     'aw-mode-line-face nil
-     :inherit 'mode-line-buffer-id
-     :foreground "lawn green")
+  (use-package ace-window
+  :defer t
+  :config
+      (set-face-attribute
+       'aw-leading-char-face nil
+       :foreground "gray"
+       :weight 'bold
+       :height 2.0)
+      (set-face-attribute
+       'aw-mode-line-face nil
+      :inherit 'mode-line-buffer-id
+       :foreground "lawn green"))
 #+END_SRC
 
 #+RESULTS:

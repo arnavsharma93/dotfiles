@@ -693,8 +693,11 @@ Enable switching to the /special/ buffers & create and set a view ([[http://irre
 ** Company mode
 Low company idle delay
 #+BEGIN_SRC emacs-lisp
-  (setq company-idle-delay 0.2)
+  (setq company-idle-delay 0.1)
 #+END_SRC
+
+#+RESULTS:
+: 0.1
 
 Trigger company completion everytime
 #+BEGIN_SRC emacs-lisp

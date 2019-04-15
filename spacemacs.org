@@ -380,14 +380,17 @@ Reload and find my dotspacemacs configuration
 ** Eshell
 [[https://gitlab.com/ambrevar/emacs-fish-completion][Fish like completion]] to help with completion in eshell
 #+BEGIN_SRC emacs-lisp
-  (use-package fish-completion
-    :defer t
-    :config
-    (global-fish-completion-mode)
-    )
-  (setq shell-default-shell 'eshell)
-
+    (use-package fish-completion
+      :ensure t
+      :config
+      (global-fish-completion-mode)
+      )
+    (setq shell-default-shell 'eshell)
+  (setq company-global-modes '(not eshell-mode))
   #+END_SRC
+
+  #+RESULTS:
+  | not | eshell-mode |
 
 
 Aliases
@@ -695,10 +698,11 @@ Trigger company completion everytime
 Trigger company completion only when 3 chars have been typed. Currently disabled.
 #+BEGIN_SRC emacs-lisp :tangle no
 (spacemacs|disable-company org-mode)
+(spacemacs|disable-company eshell-mode)
 #+END_SRC
 
 #+RESULTS:
-| real-auto-save-mode | toc-org-mode | (lambda nil (org-autolist-mode)) | org-indent-mode | ob-ipython-auto-configure-kernels | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-block-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | spacemacs/org-setup-evil-surround | spacemacs/load-yasnippet | toc-org-enable | org-download-enable | org-bullets-mode | dotspacemacs//prettify-spacemacs-docs | spacemacs//org-babel-do-load-languages | spacemacs//evil-org-mode | org-eldoc-load |
+| tramp-eshell-directory-change | with-editor-export-editor | (lambda nil (if (member ssh eshell-visual-commands) eshell-visual-commands (setq eshell-visual-commands (cons ssh eshell-visual-commands))) (if (member tail eshell-visual-commands) eshell-visual-commands (setq eshell-visual-commands (cons tail eshell-visual-commands))) (if (member htop eshell-visual-commands) eshell-visual-commands (setq eshell-visual-commands (cons htop eshell-visual-commands)))) | (lambda nil (eshell/alias fa counsel-projectile-find-file $1) (eshell/alias ff counsel-find-file $1) (eshell/alias ll ls -l $*) (eshell/alias w ace-window $1) (eshell/alias q delete-window) (eshell/alias d dired $1) (eshell/alias s magit-status) (eshell/alias m spacemacs/toggle-maximize-buffer)) | spacemacs/disable-vi-tilde-fringe | spacemacs/force-yasnippet-off | spacemacs/init-eshell-xterm-color | spacemacs//eshell-switch-company-frontend | spacemacs/disable-hl-line-mode | spacemacs//init-eshell | eldoc-mode |
 
 Don't downcase in case of company autocomplete
 #+BEGIN_SRC emacs-lisp

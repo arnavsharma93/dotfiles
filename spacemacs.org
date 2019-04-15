@@ -1320,22 +1320,27 @@ ControlPersist 600
 ** Avy
 Set timeout for avy timer
 #+BEGIN_SRC emacs-lisp
- (setq avy-timeout-seconds 0.3)
+ (setq avy-timeout-seconds 0.4)
 #+END_SRC
 
 #+RESULTS:
-: 0.3
+: 0.4
 
 Map ~/~ to run avy timer
 #+BEGIN_SRC emacs-lisp
-  (define-key evil-evilified-state-map (kbd "/") 'avy-goto-char-timer)
-  (define-key evil-motion-state-map (kbd "/") 'avy-goto-char-timer)
-  (define-key evil-operator-state-map (kbd "/") 'avy-goto-char-timer)
-  (define-key evil-normal-state-map (kbd "/") 'avy-goto-char-timer)
+  (define-key evil-evilified-state-map (kbd "C-s") 'avy-goto-char-timer)
+  (define-key evil-motion-state-map (kbd "C-s") 'avy-goto-char-timer)
+  (define-key evil-operator-state-map (kbd "C-s") 'avy-goto-char-timer)
+  (define-key evil-normal-state-map (kbd "C-s") 'avy-goto-char-timer)
+
+  (define-key evil-evilified-state-map (kbd "C-l") 'evil-avy-goto-line)
+  (define-key evil-motion-state-map (kbd "C-l") 'evil-avy-goto-line)
+  (define-key evil-operator-state-map (kbd "C-l") 'evil-avy-goto-line)
+  (define-key evil-normal-state-map (kbd "C-l") 'evil-avy-goto-line)
 #+END_SRC
 
 #+RESULTS:
-: avy-goto-char-timer
+: evil-avy-goto-line
 
 ** Helpful
 #+BEGIN_SRC emacs-lisp

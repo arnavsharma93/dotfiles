@@ -53,7 +53,7 @@
 * Installation
 ** Tools
 #+BEGIN_SRC sh :tangle no
-  brew install ripgrep
+  brew install ripgrep pandoc
 #+END_SRC
 ** Go Related Installations
 #+BEGIN_SRC sh :tangle no
@@ -252,6 +252,14 @@ TLDR for documentation
 (use-package tldr
 :defer t)
 #+END_SRC
+
+Set pandoc path
+#+BEGIN_SRC emacs-lisp
+(setq markdown-command "/usr/local/bin/pandoc")
+#+END_SRC
+
+#+RESULTS:
+: /usr/local/bin/pandoc
 
 Dired Hydra taken from ([[https://github.com/abo-abo/hydra/wiki/Dired][source]])
 #+BEGIN_SRC emacs-lisp

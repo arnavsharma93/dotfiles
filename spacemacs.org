@@ -721,10 +721,6 @@ Don't downcase in case of company autocomplete
   (setq company-dabbrev-downcase nil)
 #+END_SRC
 
-Don't show snippet popups
-#+BEGIN_SRC emacs-lisp
- (setq auto-completion-enable-snippets-in-popup nil)
-#+END_SRC
 
 Autocomplete sort by word usage
 #+BEGIN_SRC emacs-lisp

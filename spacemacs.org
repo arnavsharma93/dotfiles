@@ -818,7 +818,11 @@ Gofmt and goimports settings
 Use much better godoc at point function
 #+BEGIN_SRC emacs-lisp
   (setq godoc-at-point-function 'godoc-gogetdoc)
+  (setq go-backend 'lsp)
 #+END_SRC
+
+#+RESULTS:
+: lsp
 
 Set tab width to 4
 #+BEGIN_SRC emacs-lisp
@@ -857,10 +861,14 @@ Use golangci as linter instead of gometaliner
 Langauge Server settings. Currently disabled.
 
 Disable lsp ui ([[https://github.com/syl20bnr/spacemacs/issues/11265][source]]) and stop creating lock files ([[https://github.com/emacs-lsp/lsp-mode/issues/378][source]])
-#+BEGIN_SRC emacs-lisp :tangle no
-  (setq lsp-ui-flycheck-enable nil)
-  (setq create-lockfiles nil)
+#+BEGIN_SRC emacs-lisp
+  (setq lsp-ui-sideline-enable nil)
+  (setq lsp-ui-doc-enable nil)
 #+END_SRC
+
+#+RESULTS:
+
+
 ** File mode configurations
 Enable emacs mode depending on the file format
 

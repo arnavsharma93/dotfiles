@@ -847,7 +847,9 @@ Use golangci as linter instead of gometaliner
   (use-package projectile
     :defer t
     :config
-    (add-to-list 'projectile-globally-ignored-directories "vendor" ".gen")
+    (add-to-list 'projectile-globally-ignored-directories "vendor")
+    (add-to-list 'projectile-globally-ignored-directories ".gen")
+    (add-to-list 'projectile-globally-ignored-directories "go-build")
     (setq projectile-sort-order 'recentf)
 
     )

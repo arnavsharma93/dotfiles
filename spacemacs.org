@@ -583,19 +583,28 @@ Eshell quit on ~leader-q~ in normal mode
 
     ;; modify spacemacs modeline
     (spacemacs|hide-lighter evil-snipe-local-mode)
+
+    (evil-snipe-def 2 'inclusive "+" "-")
+    (evil-define-key '(normal motion operator visual) evil-snipe-local-mode-map
+     (kbd "C-f") 'evil-snipe-+
+      (kbd "C-S-f") 'evil-snipe--)
     ;; override evil f and set everywhere
-    (evil-snipe-def 2 'inclusive "f" "F")
+    (evil-snipe-def 1 'inclusive "f" "F")
     (evil-define-key '(normal motion operator visual) evil-snipe-local-mode-map
       "f" 'evil-snipe-f
       "F" 'evil-snipe-F)
-    ;; override evil t and set everywhere
+
     (evil-snipe-def 1 'exclusive "t" "T")
     (evil-define-key '(normal motion operator visual) evil-snipe-local-mode-map
       "t" 'evil-snipe-t
       "T" 'evil-snipe-T)
     ;; unmap default keybindings
     (evil-define-key '(normal motion) evil-snipe-local-mode-map
-      "s" nil
+      "s" nil)
+    (evil-define-key '(normal motion) evil-snipe-local-mode-map
+      "-" nil
+      "+" nil)
+    (evil-define-key '(normal motion) evil-snipe-local-mode-map
       "S" nil)
     (evil-define-key '(operator) evil-snipe-local-mode-map
       "x" nil

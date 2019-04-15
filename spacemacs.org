@@ -210,6 +210,11 @@ Add this inside dotspacemacs to the file going, assuming the repo is checked out
 #+END_SRC
 * User Config
 ** Generic emacs config
+Picked up from [[ https://www.reddit.com/r/spacemacs/comments/8tkgyz/spacemacs_seems_exceptionally_slow_is_this_a/%0A][reddit]] to speed up
+#+BEGIN_SRC emacs-lisp
+(which-key-remove-default-unicode-chars)
+#+END_SRC
+
 
 Remap ~SPC-w-w~ to ~ace-window~ instead of ~other-window~
 #+BEGIN_SRC emacs-lisp

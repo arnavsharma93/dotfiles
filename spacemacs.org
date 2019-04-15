@@ -44,7 +44,6 @@
   - [[#git-settings][Git settings]]
   - [[#shell-settings][Shell settings]]
   - [[#pdf-settings][PDF settings]]
-  - [[#autosave-go-and-emacs-buffer][Autosave go and emacs buffer]]
   - [[#tramp-mode][Tramp mode]]
   - [[#avy][Avy]]
   - [[#helpful][Helpful]]
@@ -1274,18 +1273,6 @@ Turn off line numbering in pdf view
  (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
 #+END_SRC
 
-** Autosave go and emacs buffer
-Auto save org and go mode buffers after 15 odd minutes
-#+BEGIN_SRC emacs-lisp
- (use-package real-auto-save
-   :init
-   (setq real-auto-save-interval 1800)
-   :config
-   (add-hook 'org-mode-hook 'real-auto-save-mode)
-   (add-hook 'go-mode-hook 'real-auto-save-mode)
-   )
-
-#+END_SRC
 ** Tramp mode
 Tramp mode speedups attempts ([[https://www.emacswiki.org/emacs/TrampMode][source]])
 #+BEGIN_SRC emacs-lisp

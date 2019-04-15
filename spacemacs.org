@@ -1056,25 +1056,28 @@ Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839
 
 Org mode files
 #+BEGIN_SRC emacs-lisp
- (defun my-org/open-inbox-file()
-   (interactive)
-   (find-file "~/Dropbox/org/gtd/inbox.org")
-   )
+  (defun my-org/open-inbox-file()
+    (interactive)
+    (find-file "~/Dropbox/org/gtd/inbox.org")
+    )
 
- (defun my-org/open-gtd-file()
-   (interactive)
-   (find-file "~/Dropbox/org/gtd/gtd.org")
-   )
+  (defun my-org/open-gtd-file()
+    (interactive)
+    (find-file "~/Dropbox/org/gtd/gtd.org")
+    )
 
- (spacemacs/set-leader-keys
-   "oo" 'org-capture
-   "oi" 'my-org/open-inbox-file
-   "og" 'my-org/open-gtd-file
-   "oa" 'org-agenda
-   "oc" 'org-clock-goto
-   )
+  (spacemacs/set-leader-keys
+    "oo" 'org-capture
+    "oi" 'my-org/open-inbox-file
+    "og" 'my-org/open-gtd-file
+    "oy" 'ox-clip-formatted-copy
+    "oa" 'org-agenda
+    "oc" 'org-clock-goto
+    )
 
 #+END_SRC
+
+#+RESULTS:
 
 Effort configurations
 #+BEGIN_SRC emacs-lisp

@@ -279,6 +279,7 @@ Dired Hydra taken from ([[https://github.com/abo-abo/hydra/wiki/Dired][source]])
   _r_sync            ^ ^              ^ ^                ^ ^                _?_ summary
   _z_ compress-file  _A_ find regexp
   _Z_ compress       _Q_ repl regexp
+  _c_ find-file
 
   T - tag prefix
   "
@@ -291,6 +292,7 @@ Dired Hydra taken from ([[https://github.com/abo-abo/hydra/wiki/Dired][source]])
     ("$" diredp-hide-subdir-nomove)
     ("A" dired-do-find-regexp)
     ("C" dired-do-copy)        ;; Copy all marked files
+    ("c" find-file)        ;; Copy all marked files
     ("D" dired-do-delete)
     ("E" dired-mark-extension)
     ("e" dired-ediff-files)

@@ -210,6 +210,13 @@ Add this inside dotspacemacs to the file going, assuming the repo is checked out
 #+END_SRC
 * User Config
 ** Generic emacs config
+Picked up more [[https://www.reddit.com/r/emacs/comments/819v0h/how_to_speed_up_cursor_movement_by_10x/][reddit]] shizz
+#+BEGIN_SRC emacs-lisp
+(setq auto-window-vscroll nil)
+#+END_SRC
+
+#+RESULTS:
+
 Picked up from [[ https://www.reddit.com/r/spacemacs/comments/8tkgyz/spacemacs_seems_exceptionally_slow_is_this_a/%0A][reddit]] to speed up
 #+BEGIN_SRC emacs-lisp
 (which-key-remove-default-unicode-chars)

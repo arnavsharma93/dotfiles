@@ -837,11 +837,10 @@ Use gocheck for testing
 
 Use golangci as linter instead of gometaliner
 #+BEGIN_SRC emacs-lisp
-(setq go-use-golangci-lint t)
+(setq go-use-golangci-lint nil)
 #+END_SRC
 
 #+RESULTS:
-: t
 ** Projectile
 #+BEGIN_SRC emacs-lisp
   (use-package projectile

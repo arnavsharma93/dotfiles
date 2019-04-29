@@ -806,7 +806,7 @@ Integrate with python virtualenvwrapper and get it working with eshell ([[https:
 Gofmt and goimports settings
 #+BEGIN_SRC emacs-lisp
   ;; set gofmt as the gofmt command and run it on save
-   (setq gofmt-command "gofmt")
+   (setq gofmt-command "goimports")
    (setq go-format-before-save t)
 
    (defun run-go-imports-and-save()
@@ -821,12 +821,12 @@ Gofmt and goimports settings
 #+END_SRC
 
 #+RESULTS:
-| aggressive-indent-mode | real-auto-save-mode | spacemacs//go-set-tab-width | go-eldoc-setup | spacemacs//init-jump-handlers-go-mode | spacemacs//init-company-go-mode | spacemacs//init-company-vars-go-mode | company-mode |
 
 Use much better godoc at point function
 #+BEGIN_SRC emacs-lisp
   (setq godoc-at-point-function 'godoc-gogetdoc)
   (setq go-backend 'lsp)
+
 #+END_SRC
 
 #+RESULTS:

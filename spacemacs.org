@@ -873,9 +873,11 @@ Disable lsp ui ([[https://github.com/syl20bnr/spacemacs/issues/11265][source]]) 
 #+BEGIN_SRC emacs-lisp
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-ui-doc-enable nil)
+(setq company-lsp-cache-candidates 'auto)
 #+END_SRC
 
 #+RESULTS:
+: auto
 
 
 ** File mode configurations

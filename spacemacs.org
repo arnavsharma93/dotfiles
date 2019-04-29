@@ -247,7 +247,7 @@ Remap ~SPC-w-w~ to ~ace-window~ instead of ~other-window~
 #+RESULTS:
 
 Aggressive indent
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp tangle:no
   (use-package aggressive-indent
     :defer t
     :config
@@ -257,6 +257,8 @@ Aggressive indent
     (add-hook 'lisp-mode-hook #'aggressive-indent-mode)
     )
 #+END_SRC
+
+#+RESULTS:
 
 
 TLDR for documentation

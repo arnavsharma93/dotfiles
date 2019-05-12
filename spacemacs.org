@@ -275,10 +275,28 @@ Set pandoc path
 #+RESULTS:
 : /usr/local/bin/pandoc
 
+Uncompress the file [[https://stackoverflow.com/questions/1431351/how-do-i-uncompress-unzip-within-emacs][source]]
+#+BEGIN_SRC emacs-lisp
+(eval-after-load "dired-aux"
+   '(add-to-list 'dired-compress-file-suffixes
+                 '("\\.zip\\'" ".zip" "unzip")))
 #+END_SRC
 
 #+RESULTS:
-: hydra-dired/body
+| \.zip\'     | .zip    | unzip             |               |
+| \.tar\.gz\' |         | gzip -dc %i       | tar -xf -     |
+| \.tgz\'     |         | gzip -dc %i       | tar -xf -     |
+| \.gz\'      |         | gunzip            |               |
+| \.Z\'       |         | uncompress        |               |
+| \.z\'       |         | gunzip            |               |
+| \.dz\'      |         | dictunzip         |               |
+| \.tbz\'     | .tar    | bunzip2           |               |
+| \.bz2\'     |         | bunzip2           |               |
+| \.xz\'      |         | unxz              |               |
+| \.zip\'     |         | unzip -o -d %o %i |               |
+| \.7z\'      |         | 7z x -aoa -o%o %i |               |
+| \.tar\'     | .tgz    | nil               |               |
+| :           | .tar.gz | tar -cf - %i      | gzip -c9 > %o |
 
 Set my email
 #+BEGIN_SRC emacs-lisp

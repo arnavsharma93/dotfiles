@@ -18,7 +18,6 @@
   - [[#generic-emacs-config][Generic emacs config]]
   - [[#json-mode][JSON Mode]]
   - [[#eshell][Eshell]]
-  - [[#evil-mc][Evil MC]]
   - [[#snipe][Snipe]]
   - [[#flycheck][Flycheck]]
   - [[#counsel][Counsel]]
@@ -497,38 +496,6 @@ Eshell quit on ~leader-q~ in normal mode
   (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "q" 'delete-eshell-window)
 #+END_SRC
 
-** Evil MC
-
-#+BEGIN_SRC emacs-lisp
-  ;; (defhydra hydra-evil-mc (:hint nil :color pink)
-  ;;   "
-  ;; _+_ mkdir          _v_iew           _m_ark             _(_ details        _i_nsert-subdir    wdired
-  ;; _C_opy             _O_ view other   _U_nmark all       _)_ omit-mode      _$_ hide-subdir    C-x C-q : edit
-  ;; _D_elete           _o_pen other     _u_nmark           _l_ redisplay      _w_ kill-subdir    C-c C-c : commit
-  ;; _R_ename           _M_ chmod        _t_oggle           _g_ revert buf     _e_ ediff          C-c ESC : abort
-  ;; _Y_ rel symlink    _G_ chgrp        _E_xtension mark   _s_ort             _=_ pdiff
-  ;; _S_ymlink          _h_ up dir       _F_ind marked      _._ toggle hydra   \\ flyspell
-  ;; _r_sync            ^ ^              ^ ^                ^ ^                _?_ summary
-  ;; _z_ compress-file  _A_ find regexp
-  ;; _Z_ compress       _Q_ repl regexp
-
-  ;; T - tag prefix
-  ;; "
-  ;; "f"      evil-mc-make-and-goto-first-cursor
-  ;; "h"      evil-mc-make-cursor-here
-  ;; "j"      evil-mc-make-cursor-move-next-line
-  ;; "k"      evil-mc-make-cursor-move-prev-line
-  ;; "l"      evil-mc-make-and-goto-last-cursor
-  ;; "m"      evil-mc-make-all-cursors
-  ;; "n"      evil-mc-skip-and-goto-next-match
-  ;; "N"      evil-mc-skip-and-goto-next-cursor
-  ;; "g"      evil-mc-skip-and-goto-prev-match
-  ;; "g"      evil-mc-skip-and-goto-prev-cursor
-  ;; "g"      evil-mc-resume-cursors
-  ;; "g"      evil-mc-pause-cursors
-  ;; "g"      evil-mc-undo-all-cursors
-  ;;   ("." nil :color blue))
-#+END_SRC
 
 ** Snipe
 [[https://github.com/hlissner/evil-snipe][Evil Snipe]] to supplement avy to move quickly in a line.

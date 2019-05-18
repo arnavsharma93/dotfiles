@@ -210,6 +210,7 @@ Add this inside dotspacemacs to the file going, assuming the repo is checked out
 
      ))
 #+END_SRC
+
 * User Config
 ** Generic emacs config
 Picked up more [[https://www.reddit.com/r/emacs/comments/819v0h/how_to_speed_up_cursor_movement_by_10x/][reddit]] shizz
@@ -764,6 +765,8 @@ Don't show snippet popups
 #+BEGIN_SRC emacs-lisp
  (setq auto-completion-enable-snippets-in-popup nil)
 #+END_SRC
+
+#+RESULTS:
 
 Autocomplete sort by word usage
 #+BEGIN_SRC emacs-lisp
@@ -1325,8 +1328,32 @@ SHX package for extra shell niceities
 ** PDF settings
 Turn off line numbering in pdf view
 #+BEGIN_SRC emacs-lisp
- (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
+      (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
+      (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+      (setq-default tex-main-file "main")
+      (setq-default TeX-master "main")
+  ;; make latexmk available via C-c C-c
+  ;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
+  (add-hook 'LaTeX-mode-hook (lambda ()
+    (push
+      '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+        :help "Run latexmk on file")
+      TeX-command-list)))
+  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+
+  ;; use Skim as default pdf viewer
+  ;; Skim's displayline is used for forward search (from .tex to .pdf)
+  ;; option -b highlights the current line; option -g opens Skim in the background
+  (setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+  (setq TeX-view-program-list
+       '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+
+  (server-start); start emacs in server mode so that skim can talk to it
+
 #+END_SRC
+
+#+RESULTS:
+| elisp--font-lock-flush-elisp-buffers | evil-update-pending-maps | evil-define-key-in-dictionary-mode-map | evil-define-key-in-ert-results-mode-map | evil-define-key-in-hexl-mode-map | evil-define-key-in-macrostep-keymap | evil-define-key-in-org-present-mode-keymap | evil-define-key-in-paradox-menu-mode-map | evil-define-key-in-wgrep-mode-map | evil-define-key-in-wgrep-mode-map | evil-define-key-in-wgrep-mode-map | evil-define-key-in-wgrep-mode-map | evil-define-key-in-xkcd-mode-map | evil-define-key-in-reftex-toc-mode-map |
 
 ** Spell Checking
 #+BEGIN_SRC emacs-lisp
@@ -1374,6 +1401,7 @@ Turn off line numbering in pdf view
 
 #+RESULTS:
 : hydra-spelling/body
+
 ** Tramp mode
 Tramp mode speedups attempts ([[https://www.emacswiki.org/emacs/TrampMode][source]])
 #+BEGIN_SRC emacs-lisp

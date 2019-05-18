@@ -39,6 +39,7 @@
     - [[#clocking][Clocking]]
     - [[#generic][Generic]]
     - [[#export][Export]]
+    - [[#uml-settings][UML settings]]
     - [[#gtd][GTD]]
   - [[#git-settings][Git settings]]
   - [[#shell-settings][Shell settings]]
@@ -1066,6 +1067,17 @@ Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839
      )
    )
 #+END_SRC
+*** UML settings
+Read this [[https://joppot.info/en/2017/10/30/4107%0A][source]]
+#+begin_src emacs-lisp
+  (setq org-plantuml-jar-path
+        (expand-file-name "/usr/local/Cellar/plantuml/1.2019.5/libexec/plantuml.jar"))
+
+#+end_src
+
+#+RESULTS:
+: /usr/local/Cellar/plantuml/1.2019.5/libexec/plantuml.jar
+
 *** GTD
 
 Org mode files

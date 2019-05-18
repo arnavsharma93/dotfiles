@@ -39,11 +39,13 @@
     - [[#clocking][Clocking]]
     - [[#generic][Generic]]
     - [[#export][Export]]
+    - [[#template-fix][Template fix]]
     - [[#uml-settings][UML settings]]
     - [[#gtd][GTD]]
   - [[#git-settings][Git settings]]
   - [[#shell-settings][Shell settings]]
   - [[#pdf-settings][PDF settings]]
+  - [[#spell-checking][Spell Checking]]
   - [[#tramp-mode][Tramp mode]]
   - [[#avy][Avy]]
   - [[#helpful][Helpful]]
@@ -1082,7 +1084,17 @@ Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839
 
 #+RESULTS:
 
+*** Template fix
+#+BEGIN_SRC emacs-lisp
+ ;; FIXME: workaround
+  ;; https://github.com/syl20bnr/spacemacs/issues/11798
+  (when (version<= "9.2" (org-version))
+    (require 'org-tempo))
 #+END_SRC
+
+#+RESULTS:
+: org-tempo
+
 *** UML settings
 Read this [[https://joppot.info/en/2017/10/30/4107%0A][source]]
 #+begin_src emacs-lisp

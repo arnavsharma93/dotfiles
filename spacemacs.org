@@ -264,20 +264,10 @@ Remap ~SPC-w-w~ to ~ace-window~ instead of ~other-window~
 #+RESULTS:
 : t
 
-Aggressive indent
-#+BEGIN_SRC emacs-lisp tangle:no
-  (use-package aggressive-indent
-    :defer t
-    :config
-    (setq-default aggressive-indent-comments-too t)
-    (add-hook 'go-mode-hook #'aggressive-indent-mode)
-    (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-    (add-hook 'lisp-mode-hook #'aggressive-indent-mode)
-    )
-#+END_SRC
+
 
 #+RESULTS:
-
+: hydra-frame-window/body
 
 TLDR for documentation
 #+BEGIN_SRC emacs-lisp

@@ -224,26 +224,44 @@ Picked up from [[ https://www.reddit.com/r/spacemacs/comments/8tkgyz/spacemacs_s
 
 Remap ~SPC-w-w~ to ~ace-window~ instead of ~other-window~
 #+BEGIN_SRC emacs-lisp
-    (spacemacs/set-leader-keys
-      "ww" 'ace-window
-      "wW" 'other-window
-      )
+  (spacemacs/set-leader-keys
+    "ww" 'ace-window
+    )
 
   (use-package ace-window
-  :defer t
-  :config
+      :ensure t
+      :defer 1
+      :config
       (set-face-attribute
        'aw-leading-char-face nil
-       :foreground "gray"
+       :foreground "deep sky blue"
        :weight 'bold
-       :height 2.0)
+       :height 3.0)
       (set-face-attribute
        'aw-mode-line-face nil
-      :inherit 'mode-line-buffer-id
-       :foreground "lawn green"))
+       :inherit 'mode-line-buffer-id
+       :foreground "lawn green")
+      (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l)
+            aw-dispatch-always t
+            aw-dispatch-alist
+            '((?x aw-delete-window "Ace - Delete Window")
+              (?c aw-swap-window "Ace - Swap Window")
+              (?n aw-flip-window)
+              (?v aw-split-window-vert "Ace - Split Vert Window")
+              (?h aw-split-window-horz "Ace - Split Horz Window")
+              (?m delete-other-windows "Ace - Maximize Window")
+              (?g delete-other-windows)
+              (?b balance-windows)
+              (?u (lambda ()
+                    (progn
+                      (winner-undo)
+                      (setq this-command 'winner-undo))))
+              (?r winner-redo)))
+      (ace-window-display-mode t))
 #+END_SRC
 
 #+RESULTS:
+: t
 
 Aggressive indent
 #+BEGIN_SRC emacs-lisp tangle:no

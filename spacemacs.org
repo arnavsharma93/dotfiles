@@ -733,9 +733,13 @@ Enable switching to the /special/ buffers & create and set a view ([[http://irre
 : t
 
 ** Company mode
-Low company idle delay
+
+
+
+
+  Low company idle delay
 #+BEGIN_SRC emacs-lisp
-  (setq company-idle-delay 0.1)
+    (setq company-idle-delay 0.1)
 #+END_SRC
 
 #+RESULTS:

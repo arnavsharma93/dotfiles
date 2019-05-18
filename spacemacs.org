@@ -1059,28 +1059,29 @@ Adding [[https://github.com/snosov1/toc-org/blob/master/README.org][toc-org]] to
 *** Export
 Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839/exporting-code-blocks-to-pdf-via-latex][source]])
 #+BEGIN_SRC emacs-lisp
- (use-package org
-   :defer t
-   :config
-   (progn
-     ;; (use-package ox-latex :ensure t)
-     (add-to-list 'org-latex-packages-alist '("" "minted"))
-     (setq org-latex-listings 'minted)
 
-     (setq org-latex-pdf-process
-           '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-             "bibtex %b"
-             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
-     (setq org-src-fontify-natively t)
+  ;; (use-package ox-latex :ensure t)
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
 
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((R . t)
-        (latex . t)))
-     )
-   )
+  (setq org-latex-pdf-process
+        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "bibtex %b"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+  (setq org-src-fontify-natively t)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (plantuml . t)
+     (latex . t)))
+#+END_SRC
+
+#+RESULTS:
+
 #+END_SRC
 *** UML settings
 Read this [[https://joppot.info/en/2017/10/30/4107%0A][source]]

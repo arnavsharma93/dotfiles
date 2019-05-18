@@ -35,7 +35,6 @@
   - [[#org-mode][Org mode]]
     - [[#org-brain][Org brain]]
     - [[#babel-settings][Babel settings]]
-    - [[#custom-functions][Custom functions]]
     - [[#column-view][Column view]]
     - [[#clocking][Clocking]]
     - [[#generic][Generic]]
@@ -917,20 +916,6 @@ Org brain config. Disabled for now.
 Don't ask confirmation while executing in org buffers
 #+BEGIN_SRC emacs-lisp
  (setq org-confirm-babel-evaluate nil)
-#+END_SRC
-*** Custom functions
-A nifty function to insert current time in the buffer. Bound to ~leader;~
-#+BEGIN_SRC emacs-lisp :tangle no
-    (defvar current-time-format "%H:%M"
-      "Format of date to insert with `insert-current-time' func.
-  Note the weekly scope of the command's precision.")
-    (defun insert-current-time ()
-      "insert the current time (1-week scope) into the current buffer."
-      (interactive)
-      (insert (format-time-string current-time-format (current-time)))
-      (insert " - ")
-      )
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode ";" 'insert-current-time)
 #+END_SRC
 *** Column view
 Column view default columns

@@ -753,15 +753,6 @@ Trigger company completion everytime
 #+RESULTS:
 : 1
 
-Trigger company completion only when 3 chars have been typed. Currently disabled.
-#+BEGIN_SRC emacs-lisp :tangle no
-(spacemacs|disable-company org-mode)
-(spacemacs|disable-company eshell-mode)
-#+END_SRC
-
-#+RESULTS:
-| tramp-eshell-directory-change | with-editor-export-editor | (lambda nil (if (member ssh eshell-visual-commands) eshell-visual-commands (setq eshell-visual-commands (cons ssh eshell-visual-commands))) (if (member tail eshell-visual-commands) eshell-visual-commands (setq eshell-visual-commands (cons tail eshell-visual-commands))) (if (member htop eshell-visual-commands) eshell-visual-commands (setq eshell-visual-commands (cons htop eshell-visual-commands)))) | (lambda nil (eshell/alias fa counsel-projectile-find-file $1) (eshell/alias ff counsel-find-file $1) (eshell/alias ll ls -l $*) (eshell/alias w ace-window $1) (eshell/alias q delete-window) (eshell/alias d dired $1) (eshell/alias s magit-status) (eshell/alias m spacemacs/toggle-maximize-buffer)) | spacemacs/disable-vi-tilde-fringe | spacemacs/force-yasnippet-off | spacemacs/init-eshell-xterm-color | spacemacs//eshell-switch-company-frontend | spacemacs/disable-hl-line-mode | spacemacs//init-eshell | eldoc-mode |
-
 Don't downcase in case of company autocomplete
 #+BEGIN_SRC emacs-lisp
   (setq company-dabbrev-downcase nil)

@@ -218,6 +218,14 @@ Picked up more [[https://www.reddit.com/r/emacs/comments/819v0h/how_to_speed_up_
 (setq auto-window-vscroll nil)
 #+END_SRC
 
+#+begin_src emacs-lisp
+  (use-package evil-smartparens
+    :ensure t
+    :init
+    (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+    (smartparens-global-mode))
+#+end_src
+
 #+RESULTS:
 
 Picked up from [[ https://www.reddit.com/r/spacemacs/comments/8tkgyz/spacemacs_seems_exceptionally_slow_is_this_a/%0A][reddit]] to speed up

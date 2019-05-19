@@ -646,8 +646,8 @@ Eshell quit on ~leader-q~ in normal mode
 
 Flycheck hangs up in case of huge buffers ([[https://www.reddit.com/r/emacs/comments/7mjyz8/flycheck_syntax_checking_makes_editing_files/][source]]) - found this out when profiled the code
 #+BEGIN_SRC emacs-lisp
-  (setq flycheck-idle-change-delay 3)
-  (setq flycheck-check-syntax-automatically '(save mode-enable))
+  (setq flycheck-idle-change-delay 1)
+  (setq flycheck-check-syntax-automatically '(save mode-enable idle-change))
 #+END_SRC
 
 #+RESULTS:

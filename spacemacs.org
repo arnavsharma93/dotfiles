@@ -846,22 +846,6 @@ Integrate with python virtualenvwrapper and get it working with eshell ([[https:
 : t
 
 ** Go mode
-Gofmt and goimports settings
-#+BEGIN_SRC emacs-lisp
-  ;; set gofmt as the gofmt command and run it on save
-   (setq gofmt-command "goimports")
-   (setq go-format-before-save t)
-
-   (defun run-go-imports-and-save()
-   "run goimports and save"
-     (interactive)
-     (let (gofmt-command)
-       (setq gofmt-command "goimports")
-       (gofmt)
-       (save-buffer)))
-   (spacemacs/set-leader-keys-for-major-mode 'go-mode "," 'run-go-imports-and-save)
-
-#+END_SRC
 
 #+RESULTS:
 
@@ -892,7 +876,27 @@ Use golangci as linter instead of gometaliner
 (setq go-use-golangci-lint nil)
 #+END_SRC
 
+Gofmt and goimports settings
+#+BEGIN_SRC emacs-lisp
+    ;; set gofmt as the gofmt command and run it on save
+     (setq gofmt-command "goimports")
+     (setq go-format-before-save t)
+
+     (defun run-go-imports-and-save()
+     "run goimports and save"
+       (interactive)
+       (let (gofmt-command)
+         (setq gofmt-command "goimports")
+         (gofmt)
+         (save-buffer)))
+     (spacemacs/set-leader-keys-for-major-mode 'go-mode "," 'run-go-imports-and-save)
+     (spacemacs/set-leader-keys-for-major-mode 'go-mode "gd" 'lsp-ui-doc-show)
+     (spacemacs/set-leader-keys-for-major-mode 'go-mode "gc" 'lsp-ui-doc-hide)
+  (setq lsp-ui-sideline-delay 5)
+
+#+END_SRC
 #+RESULTS:
+: 5
 ** Projectile
 #+BEGIN_SRC emacs-lisp
   (use-package projectile

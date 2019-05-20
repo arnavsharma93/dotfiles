@@ -987,6 +987,15 @@ Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839
 
 #+RESULTS:
 
+*** Shell settings
+#+begin_src emacs-lisp
+  (use-package ob-async
+    :defer t)
+#+end_src
+
+#+RESULTS:
+: /bin/zsh
+
 *** Template fix
 #+BEGIN_SRC emacs-lisp
  ;; FIXME: workaround

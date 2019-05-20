@@ -11,9 +11,6 @@
   - [[#tools][Tools]]
   - [[#go-related-installations][Go Related Installations]]
   - [[#dotspacemacs][Dotspacemacs]]
-- [[#spacemacs-centric-config][Spacemacs centric config]]
-  - [[#layers][Layers]]
-  - [[#styles-and-other-config][Styles and other config]]
 - [[#user-config][User Config]]
   - [[#generic-emacs-config][Generic emacs config]]
   - [[#json-mode][JSON Mode]]
@@ -80,139 +77,23 @@ Add this inside dotspacemacs to the file going, assuming the repo is checked out
 #+BEGIN_SRC emacs-lisp :tangle no
    (org-babel-load-file "~/dotfiles/spacemacs.org")
 #+END_SRC
-* Spacemacs centric config
-** Layers
-#+BEGIN_SRC emacs-lisp :tangle no
-
-  (defun dotspacemacs/layers ()
-    (setq-default
-     dotspacemacs-distribution 'spacemacs
-     dotspacemacs-configuration-layer-path '()
-
-     dotspacemacs-configuration-layers
-     '(javascript
-       html
-       csv
-       auto-completion
-       better-defaults
-       emacs-lisp
-       evil-commentary
-       python
-       ipython-notebook
-       ivy
-       go
-       git
-       pdf
-       markdown
-       evil-commentary
-       finance
-       org
-       yaml
-       shell
-       syntax-checking
-       my-spotify
-       latex
-       treemacs
-       chrome
-       docker
-       )
-
-     dotspacemacs-additional-packages '(fish-completion
-                                        thrift
-                                        ob-go
-                                        org-gcal
-                                        real-auto-save
-                                        org-cliplink
-                                        doom-themes
-                                        go-direx
-                                        org-autolist
-                                        )
-
-     dotspacemacs-excluded-packages '(org-projectile
-                                      )
-     dotspacemacs-delete-orphan-packages t
-     ))
-#+END_SRC
-
-#+RESULTS:
-: dotspacemacs/layers
-
-** Styles and other config
-#+BEGIN_SRC emacs-lisp :tangle no
-  (defun dotspacemacs/init ()
-    "Initialization function.
-  This function is called at the very startup of Spacemacs initialization
-  before layers configuration.
-  You should not put any user code in there besides modifying the variable
-  values."
-    (setq-default
-     dotspacemacs-elpa-https t
-     dotspacemacs-elpa-timeout 5
-     dotspacemacs-check-for-update t
-     dotspacemacs-editing-style 'vim
-     dotspacemacs-verbose-loading t
-     dotspacemacs-startup-banner 'official
-     dotspacemacs-startup-lists '(recents projects)
-     dotspacemacs-startup-recent-list-size 5
-     dotspacemacs-scratch-mode 'text-mode
-     dotspacemacs-themes '(doom-vibrant
-                           zenburn
-                           gruvbox-dark-soft
-                           spacemacs-light
-                           moe-dark
-                           tsdh-dark
-                           solarized-dark)
-     dotspacemacs-colorize-cursor-according-to-state t
-     dotspacemacs-default-font '("Source Code Pro"
-                                 :size 12
-                                 :weight normal
-                                 :width normal
-                                 :powerline-offset 2)
-     dotspacemacs-leader-key "SPC"
-     dotspacemacs-emacs-leader-key "M-m"
-     dotspacemacs-major-mode-emacs-leader-key "C-M-m"
-     dotspacemacs-distinguish-gui-tab t
-     dotspacemacs-command-key ":"
-     dotspacemacs-remap-Y-to-y$ t
-     dotspacemacs-default-layout-name "Default"
-     dotspacemacs-display-default-layout t
-     dotspacemacs-auto-resume-layouts nil
-     dotspacemacs-auto-save-file-location 'cache
-     dotspacemacs-max-rollback-slots 5
-     ;; use ivy anyway - does not matter
-     dotspacemacs-use-ido nil
-     dotspacemacs-helm-resize nil
-     dotspacemacs-helm-no-header t
-     dotspacemacs-helm-position 'bottom
-     dotspacemacs-enable-paste-micro-state t
-     ;; use a higher which key delay to make emacs do less
-     ;; it anyway does enough
-     dotspacemacs-which-key-delay 0.6
-     dotspacemacs-which-key-position 'bottom
-     dotspacemacs-loading-progress-bar t
-     dotspacemacs-fullscreen-at-startup t
-     dotspacemacs-fullscreen-use-non-native nil
-     dotspacemacs-maximized-at-startup nil
-     dotspacemacs-active-transparency 90
-     dotspacemacs-inactive-transparency 90
-     dotspacemacs-mode-line-unicode-symbols t
-     dotspacemacs-smooth-scrolling t
-     ;; no other form of line numbering is worth it
-     dotspacemacs-line-numbers 'relative
-     dotspacemacs-smartparens-strict-mode nil
-     dotspacemacs-highlight-delimiters 'all
-     dotspacemacs-persistent-server nil
-     ;; rg over everything else else
-     dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
-     dotspacemacs-default-package-repository nil
-     ;; delete trailing linespace
-     dotspacemacs-whitespace-cleanup 'trailing
-
-     ))
-#+END_SRC
-
 * User Config
 ** Generic emacs config
+:PROPERTIES:
+:ID:       229BC203-1B17-4F03-A2D6-7807B0956588
+:END:
+#+begin_src emacs-lisp
+(setq backup-directory-alist `(("~/.emacs.d/.cache/saves")))
+#+end_src
+
+#+begin_src emacs-lisp
+  (setq vc-follow-symlinks t)
+#+end_src
+
+
+#+RESULTS:
+: t
+
 Picked up more [[https://www.reddit.com/r/emacs/comments/819v0h/how_to_speed_up_cursor_movement_by_10x/][reddit]] shizz
 #+BEGIN_SRC emacs-lisp
 (setq auto-window-vscroll nil)

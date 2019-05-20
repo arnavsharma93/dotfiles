@@ -923,6 +923,14 @@ Disable lsp ui ([[https://github.com/syl20bnr/spacemacs/issues/11265][source]]) 
 (setq company-lsp-cache-candidates 'auto)
 #+END_SRC
 
+Fixing org autocomplete [[https://emacs.stackexchange.com/questions/21171/company-mode-completion-for-org-keywords][source]]
+#+begin_src emacs-lisp
+(defun my-org-mode-hook ()
+  (add-hook 'completion-at-point-functions 'pcomplete-completions-at-point nil t))
+(add-hook 'org-mode-hook #'my-org-mode-hook)
+#+end_src
+
+
 #+RESULTS:
 : auto
 

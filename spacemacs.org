@@ -460,10 +460,12 @@ Eshell quit on ~leader-q~ in normal mode
     ("q" nil :color blue))
 
   (define-key dired-mode-map "." 'hydra-dired/body)
+  (define-key dired-mode-map "W" 'revert-buffer)
+  (define-key dired-mode-map "n" 'dired-narrow-regexp)
 #+end_src
 
 #+RESULTS:
-: hydra-dired/body
+: dired-narrow-regexp
 
 ** Snipe
 [[https://github.com/hlissner/evil-snipe][Evil Snipe]] to supplement avy to move quickly in a line.

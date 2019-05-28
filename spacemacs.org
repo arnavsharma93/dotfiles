@@ -958,6 +958,11 @@ Indent in org mode
  (add-hook 'org-mode-hook 'org-indent-mode)
 #+END_SRC
 
+Set org src blocks to be indented
+#+BEGIN_SRC emacs-lisp
+(setq org-src-tab-acts-natively t)
+#+END_SRC
+
 Enable org autolist mode
 #+BEGIN_SRC emacs-lisp
  (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
@@ -974,7 +979,7 @@ Don't startup truncated. Currently disabled.
 #+END_SRC
 Remap ~C-'~ to nil so that avy can work as expected
 #+BEGIN_SRC emacs-lisp
- (define-key org-mode-map (kbd "C-'") nil)
+  (define-key org-mode-map (kbd "C-'") nil)
 #+END_SRC
 
 Adding [[https://github.com/snosov1/toc-org/blob/master/README.org][toc-org]] to generate toc for github in buffer

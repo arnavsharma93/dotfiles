@@ -509,7 +509,7 @@ Eshell quit on ~leader-q~ in normal mode
           evil-snipe-smart-case t) ;; make snipe handle smart cases
     :config
     ;; enable snipe mode
-    (evil-snipe-mode 1)
+    (evil-snipe-override-mode 1)
 
     ;; modify spacemacs modeline
     (spacemacs|hide-lighter evil-snipe-local-mode)

@@ -247,7 +247,25 @@ Reload and find my dotspacemacs configuration
 #+RESULTS:
 
 ** Eshell
+
+#+begin_src emacs-lisp
+  (setq eshell-aliases-file "/Users/arnav/dotfiles/eshell-aliases")
+#+end_src
+
+  #+begin_src emacs-lisp
+    (use-package aweshell
+    :ensure t)
+
+    (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "l" 'aweshell-clear-buffer)
+    (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "h" 'aweshell-search-history)
+    (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "n" 'aweshell-next)
+    (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "p" 'aweshell-prev)
+    (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "c" 'aweshell-new)
+    (spacemacs/set-leader-keys
+      "ass" 'aweshell-toggle
+      "ase" 'aweshell-new
       )
+  #+end_src
 
   #+RESULTS:
   | not | eshell-mode |

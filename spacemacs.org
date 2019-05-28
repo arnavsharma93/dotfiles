@@ -247,16 +247,7 @@ Reload and find my dotspacemacs configuration
 #+RESULTS:
 
 ** Eshell
-[[https://gitlab.com/ambrevar/emacs-fish-completion][Fish like completion]] to help with completion in eshell
-#+BEGIN_SRC emacs-lisp
-    (use-package fish-completion
-      :ensure t
-      :config
-      (global-fish-completion-mode)
       )
-    (setq shell-default-shell 'eshell)
-  (setq company-global-modes '(not eshell-mode))
-  #+END_SRC
 
   #+RESULTS:
   | not | eshell-mode |

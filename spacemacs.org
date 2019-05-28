@@ -1383,13 +1383,15 @@ Map ~/~ to run avy timer
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
- (spacemacs/set-leader-keys
-   "hdf" 'helpful-callable
-   "hdv" 'helpful-variable
-   "hdk" 'helpful-key
-   "hdd" 'helpful-at-point
-   )
+  (spacemacs/set-leader-keys
+    "hdf" 'helpful-callable
+    "hdv" 'helpful-variable
+    "hdk" 'helpful-key
+    "hdd" 'helpful-at-point
+    )
 
+     (evil-define-key '(normal emacs) helpful-mode-map
+       "q" 'quit-window)
 #+END_SRC
 
 ** Midnight

@@ -770,6 +770,14 @@ Set tab width to 4
  (setq go-tab-width 4)
 #+END_SRC
 
+#+begin_src emacs-lisp
+  (defun kill-gotests ()
+    (interactive)
+    (switch-to-buffer go-test-buffer-name)
+    (kill-buffer-and-window))
+     (spacemacs/set-leader-keys-for-major-mode 'go-mode "tq" 'kill-gotests)
+#+end_src
+
 Use gocheck for testing
 #+BEGIN_SRC emacs-lisp
 (setq go-use-gocheck-for-testing nil)
@@ -779,7 +787,8 @@ Use gocheck for testing
 
 Use golangci as linter instead of gometaliner
 #+BEGIN_SRC emacs-lisp
-(setq go-use-golangci-lint nil)
+  (setq go-use-golangci-lint t)
+  (setq flycheck-golangci-lint-config "~/.golangci.yml")
 #+END_SRC
 
 Gofmt and goimports settings
@@ -798,7 +807,7 @@ Gofmt and goimports settings
      (spacemacs/set-leader-keys-for-major-mode 'go-mode "," 'run-go-imports-and-save)
      (spacemacs/set-leader-keys-for-major-mode 'go-mode "gd" 'lsp-ui-doc-show)
      (spacemacs/set-leader-keys-for-major-mode 'go-mode "gc" 'lsp-ui-doc-hide)
-  (setq lsp-ui-sideline-delay 5)
+  (setq lsp-ui-sideline-delay 15)
 
 #+END_SRC
 #+RESULTS:
@@ -1218,6 +1227,15 @@ Run =zsh= in an inferior shell
 #+END_SRC
 
 Save history of shell-commands run
+#+begin_src emacs-lisp
+  (setq exec-path-from-shell-shell-name "/bin/zsh")
+    (exec-path-from-shell-copy-envs '("PATH"
+                                      "GOPATH"
+                                      "UBER_LDAP_UID"
+                                      "UBER_HOME"
+                                      "UBER_OWNER"
+                                      "VAGRANT_DEFAULT_PROVIDER"))
+#+end_src
 #+BEGIN_SRC emacs-lisp
   (setq savehist-save-minibuffer-history 1)
   (setq savehist-additional-variables

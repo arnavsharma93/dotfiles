@@ -1,7 +1,7 @@
 #+TITLE: Spacemacs configuration
 #+AUTHOR: Arnav Sharma
 #+BABEL: :cache yes
-#+PROPERTY: header-args :tangle yes
+#+PROPERTY: header-args :tangle yes :results silent
 #+OPTIONS: toc:2
 * What is this?
 # This is my spacemacs literate config. It is highly individualized. The file is tangled into =.spacemacs= at runtime using =org-babel-load-file=.

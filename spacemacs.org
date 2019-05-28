@@ -36,11 +36,12 @@
     - [[#clocking][Clocking]]
     - [[#generic][Generic]]
     - [[#export][Export]]
+    - [[#shell-settings][Shell settings]]
     - [[#template-fix][Template fix]]
     - [[#uml-settings][UML settings]]
     - [[#gtd][GTD]]
   - [[#git-settings][Git settings]]
-  - [[#shell-settings][Shell settings]]
+  - [[#shell-settings-1][Shell settings]]
   - [[#pdf-settings][PDF settings]]
   - [[#spell-checking][Spell Checking]]
   - [[#tramp-mode][Tramp mode]]
@@ -1020,7 +1021,7 @@ Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839
 *** Shell settings
 #+begin_src emacs-lisp
   (use-package ob-async
-    :defer t)
+    :ensure t)
 #+end_src
 *** Template fix
 #+BEGIN_SRC emacs-lisp

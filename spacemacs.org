@@ -269,6 +269,14 @@ Reload and find my dotspacemacs configuration
 
   #+RESULTS:
   | not | eshell-mode |
+  #+begin_src emacs-lisp
+
+    (add-hook 'eshell-mode-hook
+              (lambda ()
+                (add-to-list 'eshell-visual-commands "ssh")
+                (add-to-list 'eshell-visual-commands "tail")
+                (add-to-list 'eshell-visual-commands "htop")))
+  #+end_src
 
 
 Aliases
@@ -290,7 +298,7 @@ Aliases
 
 
 Some configuration copied from [[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][here]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp  :tangle no
   (setq ;; eshell-buffer-shorthand t ...  Can't see Bug#19391
    eshell-scroll-to-bottom-on-input 'all
    eshell-error-if-no-glob t
@@ -299,11 +307,6 @@ Some configuration copied from [[https://github.com/howardabrams/dot-files/blob/
    eshell-save-history-on-exit t
    eshell-prefer-lisp-functions nil
    eshell-destroy-buffer-when-process-dies t)
-  (add-hook 'eshell-mode-hook
-            (lambda ()
-              (add-to-list 'eshell-visual-commands "ssh")
-              (add-to-list 'eshell-visual-commands "tail")
-              (add-to-list 'eshell-visual-commands "htop")))
 #+END_SRC
 
 Enable Plan9 like smart shell ([[https://www.masteringemacs.org/article/complete-guide-mastering-eshell][source]])
@@ -314,7 +317,7 @@ Enable Plan9 like smart shell ([[https://www.masteringemacs.org/article/complete
 #+RESULTS:
 
 Clear on ~leader-l~
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
    (defun eshell-clear ()
      "Clear the eshell buffer."
      (interactive)
@@ -326,12 +329,12 @@ Clear on ~leader-l~
 #+END_SRC
 
 Get history on ~leader-h~
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (spacemacs/set-leader-keys-for-major-mode 'eshell-mode "h" 'counsel-esh-history)
 #+END_SRC
 
 Overwriting spacemacs eshell popup as it does not remember history ([[https://github.com/syl20bnr/spacemacs/issues/8538][issue]], [[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][source]])
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; create a new eshell
   (defun eshell-new (name)
 
@@ -361,13 +364,33 @@ Overwriting spacemacs eshell popup as it does not remember history ([[https://gi
       (switch-to-buffer shellname))
     )
 #+END_SRC
+#+begin_src emacs-lisp
+
+  (defun my/aweshell-new (name)
+
+    (if (not (string= (format "%s" major-mode) "eshell-mode"))
+        (progn
+          (split-window-sensibly)
+          (other-window 1)
+          ))
+
+    (if (and (get-buffer name) (string= (buffer-mode name) "eshell-mode"))
+        (progn
+          (switch-to-buffer name nil t))
+      (progn
+        (aweshell-new)
+        (rename-buffer (concat "*eshell: " name "*"))
+        ))
+
+    )
+#+end_src
 
 #+RESULTS:
 : eshell-new
 
 
 Call ivy to show eshell buffers - open one if buffer does not exist. Bind to ~SPC-'~
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
 
   (defun ivy-eshell-new ()
     (interactive)
@@ -380,7 +403,7 @@ Call ivy to show eshell buffers - open one if buffer does not exist. Bind to ~SP
                                          (buffer-list))
                                         )
               :action '(1
-                        ("s" eshell-new "switch to buffer"))
+                        ("s" my/aweshell-new "switch to buffer"))
               ))
   (spacemacs/set-leader-keys
     "'" 'ivy-eshell-new
@@ -392,7 +415,7 @@ Call ivy to show eshell buffers - open one if buffer does not exist. Bind to ~SP
 
 
 Eshell quit on ~leader-q~ in normal mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (defun exit-eshell-and-delete-window ()
     (interactive)
     (eshell-life-is-too-much)

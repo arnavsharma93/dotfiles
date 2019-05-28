@@ -267,8 +267,6 @@ Reload and find my dotspacemacs configuration
       )
   #+end_src
 
-  #+RESULTS:
-  | not | eshell-mode |
   #+begin_src emacs-lisp
 
     (add-hook 'eshell-mode-hook
@@ -292,10 +290,6 @@ Aliases
       (eshell/alias "m" "spacemacs/toggle-maximize-buffer")
       ))
 #+END_SRC
-
-#+RESULTS:
-| (lambda nil (eshell/alias fa counsel-projectile-find-file $1) (eshell/alias ff counsel-find-file $1) (eshell/alias ll ls -l $*) (eshell/alias w ace-window $1) (eshell/alias q delete-window) (eshell/alias d dired $1) (eshell/alias s magit-status) (eshell/alias m spacemacs/toggle-maximize-buffer)) | (lambda nil (eshell/alias fa counsel-projectile-find-file $1) (eshell/alias ff counsel-find-file $1) (eshell/alias ll ls -l $*) (eshell/alias w ace-window $1) (eshell/alias q delete-window) (eshell/alias d dired $1) (eshell/alias s magit-status)) | (lambda nil (eshell/alias fa counsel-projectile-find-file $1) (eshell/alias ff counsel-find-file $1) (eshell/alias ll ls -l $*) (eshell/alias d dired $1) (eshell/alias s magit-status)) | with-editor-export-editor | (lambda nil (add-to-list (quote eshell-visual-commands) ssh) (add-to-list (quote eshell-visual-commands) tail) (add-to-list (quote eshell-visual-commands) htop)) | tramp-eshell-directory-change | spacemacs/disable-vi-tilde-fringe | spacemacs/force-yasnippet-off | spacemacs/init-eshell-xterm-color | spacemacs//eshell-switch-company-frontend | spacemacs/disable-hl-line-mode | spacemacs//init-eshell | eldoc-mode | spacemacs//init-company-eshell-mode | company-mode |
-
 
 Some configuration copied from [[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][here]]
 #+BEGIN_SRC emacs-lisp  :tangle no
@@ -385,8 +379,6 @@ Overwriting spacemacs eshell popup as it does not remember history ([[https://gi
     )
 #+end_src
 
-#+RESULTS:
-: eshell-new
 
 
 Call ivy to show eshell buffers - open one if buffer does not exist. Bind to ~SPC-'~
@@ -615,8 +607,6 @@ Modifying counsel projectile actions
      ("Oa" counsel-projectile-switch-project-action-org-agenda "open project agenda")))
 #+end_src
 
-#+RESULTS:
-| 1 | (D counsel-projectile-switch-project-action-dired open project in dired) | (o counsel-projectile-switch-project-action jump to a project buffer or file) | (f counsel-projectile-switch-project-action-find-file jump to a project file) | (d counsel-projectile-switch-project-action-find-dir jump to a project directory) | (b counsel-projectile-switch-project-action-switch-to-buffer jump to a project buffer) | (m counsel-projectile-switch-project-action-find-file-manually find file manually from project root) | (S counsel-projectile-switch-project-action-save-all-buffers save all project buffers) | (k counsel-projectile-switch-project-action-kill-buffers kill all project buffers) | (K counsel-projectile-switch-project-action-remove-known-project remove project from known projects) | (c counsel-projectile-switch-project-action-compile run project compilation command) | (C counsel-projectile-switch-project-action-configure run project configure command) | (E counsel-projectile-switch-project-action-edit-dir-locals edit project dir-locals) | (v counsel-projectile-switch-project-action-vc open project in vc-dir / magit / monky) | (sg counsel-projectile-switch-project-action-grep search project with grep) | (si counsel-projectile-switch-project-action-git-grep search project with git grep) | (ss counsel-projectile-switch-project-action-ag search project with ag) | (sr counsel-projectile-switch-project-action-rg search project with rg) | (xs counsel-projectile-switch-project-action-run-shell invoke shell from project root) | (xe counsel-projectile-switch-project-action-run-eshell invoke eshell from project root) | (xt counsel-projectile-switch-project-action-run-term invoke term from project root) | (Oc counsel-projectile-switch-project-action-org-capture capture into project) | (Oa counsel-projectile-switch-project-action-org-agenda open project agenda) |
 ** Ivy config
 Define ivy builders per function ([[https://emacs.stackexchange.com/questions/36745/enable-ivy-fuzzy-matching-everywhere-except-in-swiper][related source]])
 #+BEGIN_SRC emacs-lisp
@@ -632,8 +622,6 @@ Define ivy builders per function ([[https://emacs.stackexchange.com/questions/36
    )
 #+END_SRC
 
-#+RESULTS:
-: ((counsel-M-x . ivy--regex-plus) (counsel-describe-function . ivy--regex-plus) (counsel-git . ivy--regex-fuzzy) (counsel-projectile-find-file . ivy--regex-plus) (counsel-find-file . ivy--regex-fuzzy) (counsel-describe-variable . ivy--regex-plus) (spacemacs/counsel-search . spacemacs/ivy--regex-plus) (t . ivy--regex-ignore-order))
 
 Enable switching to the /special/ buffers & create and set a view ([[http://irreal.org/blog/?p=5355][source]])
 #+BEGIN_SRC emacs-lisp
@@ -762,7 +750,10 @@ Integrate with python virtualenvwrapper and get it working with eshell ([[https:
 
 ** Go mode
 
+
 #+RESULTS:
+: ((VAGRANT_DEFAULT_PROVIDER . aws) (UBER_OWNER . arnav@uber.com) (UBER_HOME . /Users/arnav/Uber) (UBER_LDAP_UID . arnav) (GOPATH . /Users/arnav/gocode))
+
 
 Use much better godoc at point function
 #+BEGIN_SRC emacs-lisp
@@ -963,9 +954,6 @@ Enable org autolist mode
  (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
 #+END_SRC
 
-#+RESULTS:
-| (lambda nil (org-autolist-mode)) | real-auto-save-mode | toc-org-mode | org-indent-mode | org-clock-load | ob-ipython-auto-configure-kernels | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-block-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | spacemacs/org-setup-evil-surround | spacemacs/load-yasnippet | toc-org-enable | org-download-enable | org-bullets-mode | dotspacemacs//prettify-spacemacs-docs | spacemacs//org-babel-do-load-languages | spacemacs//evil-org-mode | org-eldoc-load | spacemacs//init-company-org-mode | company-mode |
-
 Keep super and subscripts as it is
 #+BEGIN_SRC emacs-lisp
  (setq org-use-sub-superscripts nil)
@@ -989,10 +977,6 @@ Adding [[https://github.com/snosov1/toc-org/blob/master/README.org][toc-org]] to
     (add-to-list 'org-tag-alist '("TOC" . ?T))
     )
 #+END_SRC
-
-#+RESULTS:
-: t
-
 *** Export
 Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839/exporting-code-blocks-to-pdf-via-latex][source]])
 #+BEGIN_SRC emacs-lisp
@@ -1024,10 +1008,6 @@ Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839
   (use-package ob-async
     :defer t)
 #+end_src
-
-#+RESULTS:
-: /bin/zsh
-
 *** Template fix
 #+BEGIN_SRC emacs-lisp
  ;; FIXME: workaround
@@ -1228,7 +1208,7 @@ Hydra for resolving merge conflicts ([[https://github.com/alphapapa/unpackaged.e
 #+END_SRC
 
 #+RESULTS:
-| lambda | nil | (when smerge-mode (unpackaged/smerge-hydra/body)) |
+| add-d-to-ediff-mode-map |
 
 
 ** Shell settings
@@ -1292,9 +1272,6 @@ Turn off line numbering in pdf view
 
 #+END_SRC
 
-#+RESULTS:
-| lambda                | nil | (split-window-sensibly) |
-| split-window-sensibly |     |                         |
 
 
 added from [[https://www.reddit.com/r/emacs/comments/bgz0hj/pdftools_performance_on_mac_os_x/][here]]
@@ -1303,8 +1280,7 @@ added from [[https://www.reddit.com/r/emacs/comments/bgz0hj/pdftools_performance
 (setq pdf-view-use-unicode-ligther nil)
 #+end_src
 
-#+RESULTS:
-: t
+
 
 ** Spell Checking
 :PROPERTIES:
@@ -1354,9 +1330,6 @@ Enviornment variables ([[https://emacs.stackexchange.com/questions/461/configura
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 #+END_SRC
 
-#+RESULTS:
-| tramp-own-remote-path | tramp-default-remote-path | /bin | /usr/bin | /sbin | /usr/sbin | /usr/local/bin | /usr/local/sbin | /local/bin | /local/freeware/bin | /local/gnu/bin | /usr/freeware/bin | /usr/pkg/bin | /usr/contrib/bin | /opt/bin | /opt/sbin | /opt/local/bin |
-
 Add this to your ~.ssh/config~
 #+BEGIN_SRC sh :tangle no
 Host *
@@ -1369,9 +1342,6 @@ Set timeout for avy timer
 #+BEGIN_SRC emacs-lisp
  (setq avy-timeout-seconds 0.4)
 #+END_SRC
-
-#+RESULTS:
-: 0.4
 
 Map ~/~ to run avy timer
 #+BEGIN_SRC emacs-lisp
@@ -1386,8 +1356,6 @@ Map ~/~ to run avy timer
   (define-key evil-normal-state-map (kbd "C-l") 'evil-avy-goto-line)
 #+END_SRC
 
-#+RESULTS:
-: evil-avy-goto-line
 
 ** Helpful
 #+BEGIN_SRC emacs-lisp
@@ -1403,9 +1371,6 @@ Map ~/~ to run avy timer
     )
 #+END_SRC
 
-#+RESULTS:
-: t
-
 #+BEGIN_SRC emacs-lisp
  (spacemacs/set-leader-keys
    "hdf" 'helpful-callable
@@ -1415,7 +1380,6 @@ Map ~/~ to run avy timer
    )
 
 #+END_SRC
-#+RESULTS:
 
 ** Midnight
 Remove unused buffers after a certain time
@@ -1429,7 +1393,3 @@ Remove unused buffers after a certain time
 #+BEGIN_SRC emacs-lisp
   (alert "Successfully loaded: booyeah" :title "Dotspacemacs")
 #+END_SRC
-
-#+RESULTS:
-Wrong type argument: integer-or-marker-p, nil
-(eshell-life-is-too-much)

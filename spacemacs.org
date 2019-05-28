@@ -1178,48 +1178,16 @@ Show branch name before tags
  (setq magit-log-show-refname-after-summary t)
 #+END_SRC
 
-Hydra for resolving merge conflicts ([[https://github.com/alphapapa/unpackaged.el#smerge-mode][source]])
-#+BEGIN_SRC emacs-lisp
-  (use-package smerge-mode
-    :defer t
-    :config
-    (defhydra unpackaged/smerge-hydra
-      (:color pink :hint nil :post (smerge-auto-leave))
-      "
-  ^Move^       ^Keep^               ^Diff^                 ^Other^
-  ^^-----------^^-------------------^^---------------------^^-------
-  _n_ext       _b_ase               _<_: upper/base        _C_ombine
-  _p_rev       _u_pper              _=_: upper/lower       _r_esolve
-  ^^           _l_ower              _>_: base/lower        _k_ill current
-  ^^           _a_ll                _R_efine
-  ^^           _RET_: current       _E_diff
-  "
-      ("n" smerge-next)
-      ("p" smerge-prev)
-      ("b" smerge-keep-base)
-      ("u" smerge-keep-upper)
-      ("l" smerge-keep-lower)
-      ("a" smerge-keep-all)
-      ("RET" smerge-keep-current)
-      ("\C-m" smerge-keep-current)
-      ("<" smerge-diff-base-upper)
-      ("=" smerge-diff-upper-lower)
-      (">" smerge-diff-base-lower)
-      ("R" smerge-refine)
-      ("E" smerge-ediff)
-      ("C" smerge-combine-with-next)
-      ("r" smerge-resolve)
-      ("k" smerge-kill-current)
-      ("ZZ" (lambda ()
-              (interactive)
-              (save-buffer)
-              (bury-buffer))
-       "Save and bury buffer" :color blue)
-      ("q" nil "cancel" :color blue))
-    :hook (magit-diff-visit-file . (lambda ()
-                                     (when smerge-mode
-                                       (unpackaged/smerge-hydra/body)))))
-#+END_SRC
+#+begin_src emacs-lisp
+(defun ediff-copy-both-to-C ()
+  (interactive)
+  (ediff-copy-diff ediff-current-difference nil 'C nil
+                   (concat
+                    (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
+                    (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
+(defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "B" 'ediff-copy-both-to-C))
+(add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
+#+end_src
 
 #+RESULTS:
 | add-d-to-ediff-mode-map |

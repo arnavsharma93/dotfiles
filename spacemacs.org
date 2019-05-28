@@ -1272,27 +1272,47 @@ SHX package for extra shell niceities
 ** PDF settings
 Turn off line numbering in pdf view
 #+BEGIN_SRC emacs-lisp
-    (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
-    (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-    (setq-default tex-main-file "main")
-    (setq-default TeX-master "main")
-    ;; make latexmk available via C-c C-c
-    ;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
-    (add-hook 'LaTeX-mode-hook (lambda ()
-                                 (push
-                                  '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
-                                    :help "Run latexmk on file")
-                                  TeX-command-list)))
-    (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+      ;; (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
+      (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+      (setq-default tex-main-file "main")
+      (setq-default TeX-master "main")
+      ;; make latexmk available via C-c C-c
+      ;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
+      (add-hook 'LaTeX-mode-hook (lambda ()
+                                   (push
+                                    '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+                                      :help "Run latexmk on file")
+                                    TeX-command-list)))
+      (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
 
-  (setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
-        TeX-view-program-selection '((output-pdf "PDF Tools"))
-        TeX-source-correlate-start-server t)
+    (setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
+          TeX-view-program-selection '((output-pdf "PDF Tools"))
+          TeX-source-correlate-start-server t)
 
-  ;; Update PDF buffers after successful LaTeX runs
-  (add-hook 'TeX-after-compilation-finished-functions
-             #'TeX-revert-document-buffer)
+    ;; Update PDF buffers after successful LaTeX runs
+    (add-hook 'TeX-after-compilation-finished-functions
+               #'TeX-revert-document-buffer)
 
+#+END_SRC
+
+#+begin_src  emacs-lisp
+  (setq pdf-sync-backward-display-action t)
+  (setq pdf-sync-forward-display-action t)
+#+end_src
+
+
+
+#+begin_src  emacs-lisp
+
+  (setq bibtex-completion-bibliography "~/Papers/references.bib"
+        bibtex-completion-library-path '("~/Papers/pdfs/")
+        bibtex-completion-notes-path "~/Papers/notes/")
+
+  (setq helm-bibtex-full-frame nil)
+
+  (setq org-ref-default-bibliography '("~/Papers/references.bib")
+        org-ref-pdf-directory "~/Papers/pdfs/"
+        org-ref-bibliography-notes "~/Papers/notes/")
 #+END_SRC
 
 
@@ -1300,7 +1320,7 @@ Turn off line numbering in pdf view
 added from [[https://www.reddit.com/r/emacs/comments/bgz0hj/pdftools_performance_on_mac_os_x/][here]]
 #+begin_src emacs-lisp
   (setq pdf-view-use-scaling t)
-(setq pdf-view-use-unicode-ligther nil)
+  (setq pdf-view-use-unicode-ligther nil)
 #+end_src
 
 

@@ -17,11 +17,7 @@ You should not put any user code in this function besides modifying the variable
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
-   '(rust
-     lua
-     javascript
-     html
-     csv
+   '(csv
      auto-completion
      better-defaults
      emacs-lisp
@@ -30,7 +26,8 @@ You should not put any user code in this function besides modifying the variable
      python
      ipython-notebook
      ivy
-     go
+     pdf
+     (go :variables go-use-golangci-lint t go-backend 'lsp)
      git
      lsp
      markdown
@@ -40,9 +37,10 @@ You should not put any user code in this function besides modifying the variable
      yaml
      shell
      syntax-checking
+     (spell-checking :variables enable-flyspell-auto-completion t spell-checking-enable-by-default nil)
      latex
-     bibtex
      plantuml
+     bibtex
      emoji
      treemacs
      multiple-cursors
@@ -55,8 +53,10 @@ You should not put any user code in this function besides modifying the variable
    ;; wrapped in a layer. If you need some configuration for these
    ;;spackages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(fish-completion
+   dotspacemacs-additional-packages '(org-noter
                                       flycheck-golangci-lint
+                                      ob-async
+                                      flyspell-popup
                                       thrift
                                       tldr
                                       alert
@@ -66,7 +66,6 @@ You should not put any user code in this function besides modifying the variable
                                       shx
                                       ox-clip
                                       ob-go
-                                      org-gcal
                                       real-auto-save
                                       org-cliplink
                                       doom-themes
@@ -80,6 +79,8 @@ You should not put any user code in this function besides modifying the variable
                                       flyspell-correct-ivy
                                       evil-smartparens
                                       dired-narrow
+                                      (aweshell :location (recipe :fetcher github
+                                                                  :repo "manateelazycat/aweshell"))
                                       )
 
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -240,7 +241,7 @@ values."
    dotspacemacs-enable-paste-micro-state t
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.4
+   dotspacemacs-which-key-delay 0.6
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -284,7 +285,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers 'relative
+   dotspacemacs-line-numbers t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -338,6 +339,10 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (setq exec-path-from-shell-check-startup-files nil)
+  (setq explicit-shell-file-name "/bin/zsh")
+  (setq shell-file-name "/bin/zsh")
+  (setenv "SHELL" "/bin/zsh")
 
   )
 
@@ -349,7 +354,9 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a e is loaded,
 you should place your code here."
 
+  (setq eshell-rc-script "/Users/arnav/.eshellrc")
   (org-babel-load-file "/Users/arnav/dotfiles/spacemacs.org")
+  (setq shell-default-shell 'aweshell)
   (setq spotify-oauth2-client-id "181308ebdfc14962bdb198189b0799e0")
   (setq spotify-oauth2-client-secret "230ac281ecc442b78a52d8515a1a28fb")
   )
@@ -385,8 +392,16 @@ This function is called at the very end of Spacemacs initialization."
      ("XXXX" . "#dc752f"))))
  '(package-selected-packages
    (quote
-    (imenu-anywhere evil-smartparens lsp-clients org-ac company-box evil-collection dired-narrow dired-hacks-utils helm-lsp wsd-mode transient lv lsp-ui company-lsp lsp-mode zenburn-theme yasnippet-snippets yapfify yaml-mode xterm-color xkcd ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify volatile-highlights virtualenvwrapper vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toml-mode toc-org tldr thrift tagedit symon string-inflection sql-indent spaceline-all-the-icons solarized-theme smex smeargle slim-mode shx shell-pop scss-mode sass-mode restart-emacs real-auto-save rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode pdf-tools pcre2el password-generator paradox ox-clip overseer orgit org-present org-pomodoro org-mime org-gcal org-download org-cliplink org-bullets org-brain org-autolist open-junk-file ob-ipython ob-go nameless mwim multi-term move-text moe-theme mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint json-navigator js2-refactor js-doc ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helpful helm-make gruvbox-theme google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gmail-message-mode gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy font-lock+ flymd flycheck-rust flycheck-pos-tip flycheck-ledger flx-ido fish-completion fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-org evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-ledger evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-commentary evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein editorconfig edit-server dumb-jump dotenv-mode doom-themes doom-modeline dockerfile-mode docker diminish define-word cython-mode csv-mode counsel-projectile counsel-css company-web company-tern company-statistics company-lua company-go company-auctex company-anaconda column-enforce-mode clean-aindent-mode centered-cursor-mode cargo auto-yasnippet auto-highlight-symbol auto-compile auctex-latexmk aggressive-indent ace-link ac-ispell)))
+    (helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag flyspell-correct-helm ace-jump-helm-line imenu-anywhere evil-smartparens lsp-clients org-ac company-box evil-collection dired-narrow dired-hacks-utils helm-lsp wsd-mode transient lv lsp-ui company-lsp lsp-mode zenburn-theme yasnippet-snippets yapfify yaml-mode xterm-color xkcd ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify volatile-highlights virtualenvwrapper vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toml-mode toc-org tldr thrift tagedit symon string-inflection sql-indent spaceline-all-the-icons solarized-theme smex smeargle slim-mode shx shell-pop scss-mode sass-mode restart-emacs real-auto-save rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode pdf-tools pcre2el password-generator paradox ox-clip overseer orgit org-present org-pomodoro org-mime org-gcal org-download org-cliplink org-bullets org-brain org-autolist open-junk-file ob-ipython ob-go nameless mwim multi-term move-text moe-theme mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint json-navigator js2-refactor js-doc ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helpful helm-make gruvbox-theme google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gmail-message-mode gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy font-lock+ flymd flycheck-rust flycheck-pos-tip flycheck-ledger flx-ido fish-completion fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-org evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-ledger evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-commentary evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein editorconfig edit-server dumb-jump dotenv-mode doom-themes doom-modeline dockerfile-mode docker diminish define-word cython-mode csv-mode counsel-projectile counsel-css company-web company-tern company-statistics company-lua company-go company-auctex company-anaconda column-enforce-mode clean-aindent-mode centered-cursor-mode cargo auto-yasnippet auto-highlight-symbol auto-compile auctex-latexmk aggressive-indent ace-link ac-ispell)))
  '(pdf-view-midnight-colors (quote ("#655370" . "#fbf8ef")))
+ '(safe-local-variable-values
+   (quote
+    ((ivy-ignore-buffers quote
+                         (nconc ivy-ignore-buffers
+                                (quote
+                                 ("tex"))))
+     (go-backend . go-mode)
+     (go-backend . lsp))))
  '(shx-kept-commands
    (quote
     (("baneker cerberus" . "z banker && cerberus --no-status-page")
@@ -405,6 +420,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-goggles-undo-redo-remove-face ((t (:inherit diff-removed))))
  '(evil-goggles-yank-face ((t (:inherit diff-changed)))))
 )
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

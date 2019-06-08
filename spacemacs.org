@@ -773,12 +773,25 @@ Set tab width to 4
 #+END_SRC
 
 #+begin_src emacs-lisp
-  (defun kill-gotests ()
-    (interactive)
-    (switch-to-buffer go-test-buffer-name)
-    (kill-buffer-and-window))
-     (spacemacs/set-leader-keys-for-major-mode 'go-mode "tq" 'kill-gotests)
+    (defun kill-gotests ()
+      (interactive)
+      (switch-to-buffer go-test-buffer-name)
+      (kill-buffer-and-window))
+       (spacemacs/set-leader-keys-for-major-mode 'go-mode "tq" 'kill-gotests)
+
+
+
 #+end_src
+#+begin_src emacs-lisp
+      (setq go-use-test-args "-coverprofile=/tmp/.coverage.out")
+    (defun my/coverage ()
+      (interactive)
+      (go-coverage "/tmp/.coverage.out"))
+
+    (spacemacs/set-leader-keys-for-major-mode 'go-mode "gc" 'my/coverage)
+#+end_src
+
+
 
 Use gocheck for testing
 #+BEGIN_SRC emacs-lisp

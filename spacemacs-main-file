@@ -17,7 +17,10 @@ You should not put any user code in this function besides modifying the variable
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
-   '(csv
+   '(html
+     rust
+     ruby
+     csv
      auto-completion
      better-defaults
      emacs-lisp
@@ -25,9 +28,10 @@ You should not put any user code in this function besides modifying the variable
      xkcd
      python
      ipython-notebook
-     ivy
      pdf
+     ivy
      (go :variables go-use-golangci-lint t go-backend 'lsp)
+     (mu4e :variables mu4e-installation-path "/usr/local/share/emacs/site-lisp/mu/mu4e" mu4e-use-maildirs-extension t)
      git
      lsp
      markdown
@@ -46,7 +50,6 @@ You should not put any user code in this function besides modifying the variable
      multiple-cursors
      chrome
      docker
-     my-spotify
      sql
      )
    ;; List of additional packages that will be installed without being
@@ -148,10 +151,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(doom-vibrant
+   dotspacemacs-themes '(spacemacs-light
+                         doom-vibrant
                          zenburn
                          gruvbox-dark-soft
-                         spacemacs-light
                          moe-dark
                          tsdh-dark
                          solarized-dark)
@@ -343,7 +346,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq explicit-shell-file-name "/bin/zsh")
   (setq shell-file-name "/bin/zsh")
   (setenv "SHELL" "/bin/zsh")
-
+  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
   )
 
 (defun dotspacemacs/user-config ()
@@ -392,7 +395,7 @@ This function is called at the very end of Spacemacs initialization."
      ("XXXX" . "#dc752f"))))
  '(package-selected-packages
    (quote
-    (helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag flyspell-correct-helm ace-jump-helm-line imenu-anywhere evil-smartparens lsp-clients org-ac company-box evil-collection dired-narrow dired-hacks-utils helm-lsp wsd-mode transient lv lsp-ui company-lsp lsp-mode zenburn-theme yasnippet-snippets yapfify yaml-mode xterm-color xkcd ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify volatile-highlights virtualenvwrapper vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toml-mode toc-org tldr thrift tagedit symon string-inflection sql-indent spaceline-all-the-icons solarized-theme smex smeargle slim-mode shx shell-pop scss-mode sass-mode restart-emacs real-auto-save rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode pdf-tools pcre2el password-generator paradox ox-clip overseer orgit org-present org-pomodoro org-mime org-gcal org-download org-cliplink org-bullets org-brain org-autolist open-junk-file ob-ipython ob-go nameless mwim multi-term move-text moe-theme mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint json-navigator js2-refactor js-doc ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helpful helm-make gruvbox-theme google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gmail-message-mode gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy font-lock+ flymd flycheck-rust flycheck-pos-tip flycheck-ledger flx-ido fish-completion fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-org evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-ledger evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-commentary evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein editorconfig edit-server dumb-jump dotenv-mode doom-themes doom-modeline dockerfile-mode docker diminish define-word cython-mode csv-mode counsel-projectile counsel-css company-web company-tern company-statistics company-lua company-go company-auctex company-anaconda column-enforce-mode clean-aindent-mode centered-cursor-mode cargo auto-yasnippet auto-highlight-symbol auto-compile auctex-latexmk aggressive-indent ace-link ac-ispell)))
+    (helm-css-scss haml-mode web-completion-data add-node-modules-path rust-mode ranger ivy-bibtex flyspell-correct-ivy helm-mu seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe rbenv rake minitest helm-gtags ggtags enh-ruby-mode counsel-gtags chruby bundler inf-ruby mu4e-maildirs-extension mu4e-alert helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag flyspell-correct-helm ace-jump-helm-line imenu-anywhere evil-smartparens lsp-clients org-ac company-box evil-collection dired-narrow dired-hacks-utils helm-lsp wsd-mode transient lv lsp-ui company-lsp lsp-mode zenburn-theme yasnippet-snippets yapfify yaml-mode xterm-color xkcd ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify volatile-highlights virtualenvwrapper vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toml-mode toc-org tldr thrift tagedit symon string-inflection sql-indent spaceline-all-the-icons solarized-theme smex smeargle slim-mode shx shell-pop scss-mode sass-mode restart-emacs real-auto-save rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode pdf-tools pcre2el password-generator paradox ox-clip overseer orgit org-present org-pomodoro org-mime org-gcal org-download org-cliplink org-bullets org-brain org-autolist open-junk-file ob-ipython ob-go nameless mwim multi-term move-text moe-theme mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint json-navigator js2-refactor js-doc ivy-yasnippet ivy-xref ivy-purpose ivy-hydra indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helpful helm-make gruvbox-theme google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gmail-message-mode gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy font-lock+ flymd flycheck-rust flycheck-pos-tip flycheck-ledger flx-ido fish-completion fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-org evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-ledger evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-commentary evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein editorconfig edit-server dumb-jump dotenv-mode doom-themes doom-modeline dockerfile-mode docker diminish define-word cython-mode csv-mode counsel-projectile counsel-css company-web company-tern company-statistics company-lua company-go company-auctex company-anaconda column-enforce-mode clean-aindent-mode centered-cursor-mode cargo auto-yasnippet auto-highlight-symbol auto-compile auctex-latexmk aggressive-indent ace-link ac-ispell)))
  '(pdf-view-midnight-colors (quote ("#655370" . "#fbf8ef")))
  '(safe-local-variable-values
    (quote
@@ -402,6 +405,7 @@ This function is called at the very end of Spacemacs initialization."
                                  ("tex"))))
      (go-backend . go-mode)
      (go-backend . lsp))))
+ '(send-mail-function (quote sendmail-send-it))
  '(shx-kept-commands
    (quote
     (("baneker cerberus" . "z banker && cerberus --no-status-page")

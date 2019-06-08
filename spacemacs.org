@@ -111,7 +111,7 @@ Picked up more [[https://www.reddit.com/r/emacs/comments/819v0h/how_to_speed_up_
 
 #+RESULTS:
 
-Picked up from [[ https://www.reddit.com/r/spacemacs/comments/8tkgyz/spacemacs_seems_exceptionally_slow_is_this_a/%0A][reddit]] to speed up
+Picked up from[[ https://www.reddit.com/r/spacemacs/comments/8tkgyz/spacemacs_seems_exceptionally_slow_is_this_a/%0A][]] to speed up
 #+BEGIN_SRC emacs-lisp
 (which-key-remove-default-unicode-chars)
 #+END_SRC
@@ -1011,23 +1011,25 @@ Get org export to pdf working ([[https://emacs.stackexchange.com/questions/20839
 #+BEGIN_SRC emacs-lisp
 
 
-  ;; (use-package ox-latex :ensure t)
-  (add-to-list 'org-latex-packages-alist '("" "minted"))
-  (setq org-latex-listings 'minted)
+   ;; (use-package ox-latex :ensure t)
+   (add-to-list 'org-latex-packages-alist '("" "minted"))
+   (setq org-latex-listings 'minted)
 
-  (setq org-latex-pdf-process
-        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "bibtex %b"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+   (setq org-latex-pdf-process
+         '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+           "bibtex %b"
+           "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+           "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
-  (setq org-src-fontify-natively t)
+   (setq org-src-fontify-natively t)
 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (plantuml . t)
-     (latex . t)))
+   (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((R . t)
+    (shell . t)
+  (go . t)
+      (plantuml . t)
+      (latex . t)))
 #+END_SRC
 
 #+RESULTS:
@@ -1253,29 +1255,30 @@ SHX package for extra shell niceities
 : t
 
 ** PDF settings
+:PROPERTIES:
+:ID:       EB65940E-4510-4F9F-AF4E-F2B06C710981
+:END:
 Turn off line numbering in pdf view
 #+BEGIN_SRC emacs-lisp
-      ;; (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
-      (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-      (setq-default tex-main-file "main")
-      (setq-default TeX-master "main")
-      ;; make latexmk available via C-c C-c
-      ;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
-      (add-hook 'LaTeX-mode-hook (lambda ()
-                                   (push
-                                    '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
-                                      :help "Run latexmk on file")
-                                    TeX-command-list)))
-      (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  (setq-default tex-main-file "main")
+  (setq-default TeX-master "main")
+  ;; make latexmk available via C-c C-c
+  ;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
+  (add-hook 'LaTeX-mode-hook (lambda ()
+                               (push
+                                '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+                                  :help "Run latexmk on file")
+                                TeX-command-list)))
+  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
 
-    (setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
-          TeX-view-program-selection '((output-pdf "PDF Tools"))
-          TeX-source-correlate-start-server t)
+  (setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
+        TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-source-correlate-start-server t)
 
-    ;; Update PDF buffers after successful LaTeX runs
-    (add-hook 'TeX-after-compilation-finished-functions
-               #'TeX-revert-document-buffer)
-
+  ;; Update PDF buffers after successful LaTeX runs
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
 #+END_SRC
 
 #+begin_src  emacs-lisp

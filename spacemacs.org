@@ -1493,16 +1493,6 @@ Other settings
 #+end_src
 
 ** Midnight
-:PROPERTIES:
-:ID:       934E1728-9B90-4830-BB04-68316EB31377
-:END:
-Remove unused buffers after a certain time
-
-#+BEGIN_SRC emacs-lisp
-(use-package midnight
-:ensure t)
-#+END_SRC
-
 * Finish loading
 #+BEGIN_SRC emacs-lisp
   (alert "Successfully loaded: booyeah" :title "Dotspacemacs")

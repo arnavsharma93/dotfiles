@@ -1321,9 +1321,23 @@ added from [[https://www.reddit.com/r/emacs/comments/bgz0hj/pdftools_performance
 (setq enable-flyspell-auto-completion t)
 #+END_SRC
 
+Proselinting
+#+begin_src shell :tangle no
+brew install proselint
+#+end_src
 
-#+RESULTS:
-: t
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :config
+    (flycheck-define-checker proselint
+      "A linter for prose."
+      :command ("proselint" source-inplace)
+      :error-patterns
+      ((warning line-start (file-name) ":" line ":" column ": "
+          (id (one-or-more (not (any " "))))
+          (message) line-end))
+      :modes (text-mode TeX-latex-mode mu4e-compose-mode org-mode markdown-mode gfm-mode)))
+#+end_src
 
 ** Tramp mode
 :PROPERTIES:

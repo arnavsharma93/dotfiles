@@ -1,3 +1,0 @@
-[submodule "layers/my-spotify/local/spotify"]
-  path = layers/my-spotify/local/spotify
-  url = https://github.com/danielfm/spotify.el.git

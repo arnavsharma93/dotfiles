@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
 
 yabai -m config status_bar                      on
 yabai -m config status_bar_text_font            "Hasklug Nerd Font:Bold:12.0"
@@ -30,7 +30,7 @@ yabai -m config mouse_action2                   resize
 
 # general space settings
 yabai -m config layout                          bsp
-yabai -m config top_padding                     30
+yabai -m config top_padding                     26
 yabai -m config bottom_padding                  15
 yabai -m config left_padding                    5
 yabai -m config right_padding                   5
@@ -42,43 +42,47 @@ yabai -m config active_window_opacity       1.0
 yabai -m config normal_window_opacity       0.5
 
 # Space labels
-yabai -m space 1 --label "W1b"
-yabai -m space 2 --label "C2de"
-yabai -m space 3 --label "T3ols"
-yabai -m space 4 --label "C4mms"
-yabai -m space 5 --label "M5dia"
-yabai -m space 6 --label "F6oat"
-yabai -m space 7 --label "S7condary"
+yabai -m space 1 --label "Web"
+yabai -m space 2 --label "Code"
+yabai -m space 3 --label "Tools"
+yabai -m space 4 --label "Comms"
+yabai -m space 5 --label "Media"
+yabai -m space 6 --label "Float"
+yabai -m space 7 --label "Backup"
+yabai -m space 8 --label "Data"
 
 # Space config
 yabai -m config --space 6 layout float
 
 # Unmanaged
-yabai -m rule --add app="^System Preferences$"  manage=off border=off
+yabai -m rule --add app="*"         space=Backup
 
 # Web
-yabai -m rule --add app="Brave Browser"         space=1
+yabai -m rule --add app="Brave Browser"         space=Web
 
-yabai -m rule --add app="Emacs"         space=2
-yabai -m rule --add app="Visual Studio Code"         space=2
-yabai -m rule --add app="iTerm"              space=3
+
+yabai -m rule --add app="Microsoft Excel"         space=Data
+
+yabai -m rule --add app="Emacs"         space=Code
+yabai -m rule --add app="Visual Studio Code"         space=Code
+yabai -m rule --add app="iTerm"              space=Code
 
 # Tools
-yabai -m rule --add app="Finder"                space=3
-yabai -m rule --add app="Activity Monitor"      space=3
-yabai -m rule --add app="Preview"               space=3
+yabai -m rule --add app="Finder"                space=Tools
+yabai -m rule --add app="Activity Monitor"      space=Tools
+yabai -m rule --add app="Preview"               space=Tools
+yabai -m rule --add app="^zoom"               space=Tools
 
 # Social
-yabai -m rule --add app="Telegram"               space=4
-yabai -m rule --add app="WhatsApp"              space=4
-yabai -m rule --add app="Slack"                 space=4
+yabai -m rule --add app="Telegram"               space=Comms
+yabai -m rule --add app="^WhatsApp"              space=Comms
+yabai -m rule --add app="Slack"                 space=Comms
 
 # Media
-yabai -m rule --add app="Spotify"               space=5
+yabai -m rule --add app="Spotify"               space=Media
 
 # Floating
-yabai -m rule --add app="^System Preferences$"  space=6
-
+yabai -m rule --add app="^System Preferences$"  space=Float
 
 
 # Refresh spaces widget on space change
@@ -114,3 +118,20 @@ yabai -m signal --add event=window_destroyed action="osascript -e 'tell applicat
 # Refresh process widget when current window title changes
 yabai -m signal --add event=window_title_changed action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
 
+
+
+# If no window on the current space is focused after a window is destroyed or
+# minimized, or an application is hidden, focus the window under the cursor.
+yabai -m signal --add event=window_destroyed \
+  action="${functions[focus_under_cursor]}"
+yabai -m signal --add event=window_minimized \
+  action="${functions[focus_under_cursor]}"
+yabai -m signal --add event=application_hidden \
+  action="${functions[focus_under_cursor]}"
+
+function focus_under_cursor {
+  if yabai -m query --windows --space |
+      jq -er 'map(select(.focused == 1)) | length == 0' >/dev/null; then
+    yabai -m window --focus mouse 2>/dev/null || true
+  fi
+}
